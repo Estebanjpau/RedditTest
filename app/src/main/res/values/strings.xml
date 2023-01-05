@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RedditTest</string>
+
+    <string name="main_button">Principal</string>
+    <string name="search_button">Descubrir</string>
+    <string name="post_button">Crear</string>
+    <string name="chat_button">Chat</string>
+    <string name="message_button">Mensaje</string>
+
+</resources>
