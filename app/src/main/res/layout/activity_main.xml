@@ -4,22 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/black"
     android:background="@color/dark_mode"
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/ly_superiorbar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="65dp"
+        android:background="@color/dark_mode"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
-
-
     </LinearLayout>
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="1dp"
+        android:background="@color/grey_dark"
+        app:layout_constraintTop_toBottomOf="@id/ly_superiorbar"/>
+
+
+    <ScrollView
+        android:id="@+id/sc_feed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_mode"
+        app:layout_constraintBottom_toTopOf="@+id/ly_navigationbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ly_superiorbar"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_userimage"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/grey_dark"
+        app:layout_constraintBottom_toTopOf="@id/ly_navigationbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ly_navigationbar"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/dark_mode"
         android:orientation="horizontal"
+        android:paddingTop="5dp"
         android:paddingBottom="30dp"
         android:weightSum="5"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -31,6 +76,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
@@ -39,6 +85,7 @@
                 android:background="@drawable/ib_main" />
 
             <TextView
+                android:id="@+id/tv_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Principal"
@@ -54,6 +101,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
@@ -62,6 +110,7 @@
                 android:background="@drawable/ib_compass" />
 
             <TextView
+                android:id="@+id/tv_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/search_button"
@@ -77,6 +126,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_post"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
@@ -85,6 +135,7 @@
                 android:background="@drawable/ib_plus" />
 
             <TextView
+                android:id="@+id/tv_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/post_button"
@@ -100,6 +151,7 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_chat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
@@ -108,6 +160,7 @@
                 android:background="@drawable/ib_chat_bubble" />
 
             <TextView
+                android:id="@+id/tv_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/chat_button"
@@ -123,14 +176,17 @@
             android:orientation="vertical">
 
             <ImageButton
+                android:id="@+id/ib_message"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:layout_weight="1"
-                android:background="@drawable/ib_bell" />
+                android:background="@drawable/ib_bell"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
+                android:id="@+id/tv_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/message_button"
