@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dark_mode">
+
+    <ImageView
+        android:id="@+id/ivUserPhoto"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/grey_dark"/>
+
+    <TextView
+        android:id="@+id/tvUserId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:textColor="@color/grey_light"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/ivUserPhoto"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="u/Dudefenderson" />
+
+    <TextView
+        android:id="@+id/tvAlias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:textColor="@color/grey_semidark"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/ivUserPhoto"
+        app:layout_constraintTop_toBottomOf="@id/tvUserId"
+        tools:text="r/Colombia" />
+
+    <TextView
+        android:id="@+id/tvDot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        android:text="•"
+        android:textColor="@color/grey_semidark"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/tvAlias"
+        app:layout_constraintTop_toTopOf="@id/tvAlias" />
+
+    <TextView
+        android:id="@+id/tvTimeAgo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey_semidark"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/tvDot"
+        app:layout_constraintTop_toBottomOf="@id/tvUserId"
+        tools:text="8h" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textColor="@color/grey_light"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivUserPhoto"
+        tools:text="Bad bunny: un gran desastre" />
+
+    <ImageView
+        android:id="@+id/ivPostImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
