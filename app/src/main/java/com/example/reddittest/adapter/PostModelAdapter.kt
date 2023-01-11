@@ -20,5 +20,5 @@ class PostModelAdapter(private val postModel:List<PostModel>) : RecyclerView.Ada
         holder.paint(item)
     }
 
-    override fun getItemCount(): Int = postModel.size
+    override fun getItemCount(): Int = providerList.size
 }

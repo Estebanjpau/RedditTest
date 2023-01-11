@@ -8,37 +8,58 @@
 
     <ImageView
         android:id="@+id/ivUserPhoto"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_margin="8dp"
-        android:padding="8dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/grey_dark"/>
+        tools:background="@color/grey_dark" />
 
     <TextView
         android:id="@+id/tvUserId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
         android:textColor="@color/grey_light"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/ivUserPhoto"
+        app:layout_constraintStart_toEndOf="@id/tvPrefijoU"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="u/Dudefenderson" />
+        tools:text="Dudefenderson" />
+
+    <TextView
+        android:id="@+id/tvPrefijoU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:text="u/"
+        android:textColor="@color/grey_light"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/ivUserPhoto"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPrefijoR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:text="r/"
+        android:textColor="@color/grey_semidark"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/ivUserPhoto"
+        app:layout_constraintTop_toBottomOf="@id/tvPrefijoU"/>
 
     <TextView
         android:id="@+id/tvAlias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
         android:textColor="@color/grey_semidark"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/ivUserPhoto"
+        app:layout_constraintStart_toEndOf="@id/tvPrefijoR"
         app:layout_constraintTop_toBottomOf="@id/tvUserId"
-        tools:text="r/Colombia" />
+        tools:text="Colombia" />
 
     <TextView
         android:id="@+id/tvDot"
@@ -70,7 +91,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:textColor="@color/grey_light"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivUserPhoto"
@@ -78,11 +99,24 @@
 
     <ImageView
         android:id="@+id/ivPostImage"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPostImage" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPostImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

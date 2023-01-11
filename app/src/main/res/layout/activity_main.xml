@@ -18,15 +18,16 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/SuperiorLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_dark"
-        app:layout_constraintTop_toBottomOf="@id/ly_superiorbar"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_feed"
-        app:layout_constraintTop_toBottomOf="@id/ly_superiorbar"
+        app:layout_constraintTop_toTopOf="@id/SuperiorLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -44,11 +45,10 @@
         android:baselineAligned="false"
         android:id="@+id/ly_navigationbar"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="50dp"
         android:background="@color/dark_mode"
         android:orientation="horizontal"
         android:paddingTop="5dp"
-        android:paddingBottom="30dp"
         android:weightSum="5"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -62,8 +62,8 @@
                 android:id="@+id/ib_main"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/ib_main" />
 
@@ -87,8 +87,8 @@
                 android:id="@+id/ib_search"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/ib_compass" />
 
@@ -112,8 +112,8 @@
                 android:id="@+id/ib_post"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/ib_plus" />
 
@@ -137,8 +137,8 @@
                 android:id="@+id/ib_chat"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/ib_chat_bubble" />
 
@@ -162,8 +162,8 @@
                 android:id="@+id/ib_message"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/ib_bell"
                 tools:ignore="SpeakableTextPresentCheck" />
