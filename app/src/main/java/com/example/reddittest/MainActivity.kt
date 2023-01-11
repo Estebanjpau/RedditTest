@@ -1,21 +1,26 @@
 package com.example.reddittest
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.reddittest.adapter.PostModelAdapter
+import com.example.reddittest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initRecyclerView()
     }
 
-    fun initRecyclerView(){
-        val recyclerView = findViewById<RecyclerView>(R.id.rv_feed)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = PostModelAdapter(PostProvider.providerList)
+    private fun initRecyclerView(){
+
+        binding.rvFeed.layoutManager = LinearLayoutManager(this)
+        binding.rvFeed.adapter = PostModelAdapter(PostProvider.providerList)
     }
 }
