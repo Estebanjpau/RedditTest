@@ -1,27 +1,23 @@
 package com.example.reddittest.adapter
 
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.example.reddittest.PostModel
-import com.example.reddittest.R
+import com.example.reddittest.databinding.ItemPostBinding
 
-class PostModelViewHolder(view: View) : ViewHolder(view){
+class PostModelViewHolder(view: View) : ViewHolder(view) {
 
-    val tvuserName = view.findViewById<TextView>(R.id.tvUserId)
-    val tvalias = view.findViewById<TextView>(R.id.tvAlias)
-    val tvtitle = view.findViewById<TextView>(R.id.tvTitle)
-    val tvtimeAgo = view.findViewById<TextView>(R.id.tvTimeAgo)
-    val ivUserPhoto = view.findViewById<ImageView>(R.id.ivUserPhoto)
-    val ivPostImage = view.findViewById<ImageView>(R.id.ivPostImage)
+    val binding = ItemPostBinding.bind(view)
 
 
-    fun paint(postExample: PostModel){
-        tvuserName.text = postExample.userId
-        tvalias.text = postExample.alias
-        tvtitle.text = postExample.title
-        tvtimeAgo.text = postExample.timeAgo
+    fun paint(postExample: PostModel) {
+        binding.tvUserId.text = postExample.userId
+        binding.tvAlias.text = postExample.alias
+        binding.tvTitle.text = postExample.title
+        binding.tvTimeAgo.text = postExample.timeAgo
+        Glide.with(binding.ivUserPhoto.context).load(postExample.userPhoto).into(binding.ivUserPhoto)
+        Glide.with(binding.ivPostImage.context).load(postExample.postPhoto).into(binding.ivPostImage)
     }
 
 }

@@ -18,7 +18,11 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
     }
 
+<<<<<<< HEAD
     private fun initRecyclerView(){
+=======
+    fun initRecyclerView(){
+>>>>>>> bc0102f435b3e351ce661c4056cd856714a04da8
 
         binding.rvFeed.layoutManager = LinearLayoutManager(this)
         binding.rvFeed.adapter = PostModelAdapter(PostProvider.providerList)

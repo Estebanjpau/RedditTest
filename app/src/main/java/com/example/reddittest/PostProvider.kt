@@ -9,7 +9,7 @@ class PostProvider {
                 "1672979292",
                 "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
                 "Los leones son geniales",
-                "https://i.pinimg.com/474x/17/95/b4/1795b478db7a7a086265c3a383219e1f.jpg"
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/800px-Lion_waiting_in_Namibia.jpg"
             ),
             PostModel(
                 "P_Blnta7",
