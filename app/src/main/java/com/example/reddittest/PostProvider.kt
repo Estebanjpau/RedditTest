@@ -1,4 +1,4 @@
-package com.example.reddittest
+/*package com.example.reddittest
 
 class PostProvider {
     companion object{
@@ -38,3 +38,5 @@ class PostProvider {
         )
     }
 }
+
+ */

@@ -8,13 +8,14 @@
 
     <ImageView
         android:id="@+id/ivUserPhoto"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="8dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/account_circle"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/grey_dark" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvUserId"
@@ -49,7 +50,7 @@
         android:textColor="@color/grey_semidark"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/ivUserPhoto"
-        app:layout_constraintTop_toBottomOf="@id/tvPrefijoU"/>
+        app:layout_constraintTop_toBottomOf="@id/tvPrefijoU" />
 
     <TextView
         android:id="@+id/tvAlias"
@@ -101,9 +102,18 @@
         android:id="@+id/ivPostImage"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <VideoView
+        android:id="@+id/vvPostVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
 
     <View
         android:layout_width="1dp"
@@ -111,12 +121,82 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivPostImage" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clsocialbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPostImage">
+
+        <ImageButton
+            android:id="@+id/ibUpVote"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_margin="6dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/arrow_fat_up_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/clsocialbar" />
+
+        <TextView
+            android:id="@+id/tvCounterVotes"
+            android:layout_width="38dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="6dp"
+            android:textAlignment="center"
+            android:textColor="@color/grey_semidark"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/ibDownVote"
+            app:layout_constraintStart_toEndOf="@id/ibUpVote"
+            app:layout_constraintTop_toTopOf="@id/clsocialbar"
+            tools:text="80K" />
+
+        <ImageButton
+            android:id="@+id/ibDownVote"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/arrow_fat_down_bold"
+            app:layout_constraintStart_toEndOf="@id/tvCounterVotes"
+            app:layout_constraintTop_toTopOf="@id/clsocialbar" />
+
+        <ImageButton
+            android:id="@+id/ibCounterComment"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/chat_bubble_left"
+            app:layout_constraintEnd_toStartOf="@id/tvCounterComment"
+            app:layout_constraintStart_toEndOf="@id/ibDownVote"
+            app:layout_constraintTop_toTopOf="@id/clsocialbar" />
+
+        <TextView
+            android:id="@+id/tvCounterComment"
+            android:layout_width="38dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="6dp"
+            android:textAlignment="center"
+            android:textColor="@color/grey_semidark"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/ibCounterComment"
+            app:layout_constraintTop_toTopOf="@id/clsocialbar"
+            tools:text="80K" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:background="@color/black"
         android:backgroundTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivPostImage" />
+        app:layout_constraintTop_toBottomOf="@id/clsocialbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
