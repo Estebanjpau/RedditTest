@@ -3,11 +3,14 @@ package com.example.reddittest.adapter
 import android.net.Uri
 import android.view.View
 import android.widget.MediaController
+import android.widget.Toast
 import android.widget.VideoView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.reddittest.PostModel
 import com.example.reddittest.PostUtils
+import com.example.reddittest.R
 import com.example.reddittest.databinding.ItemPostBinding
 
 
@@ -42,10 +45,33 @@ class PostModelViewHolder(view: View) : ViewHolder(view) {
         var videoView: VideoView = binding.vvPostVideo
         val mediaController =  MediaController(videoView.context)
         mediaController.setMediaPlayer(videoView)
+        mediaController.setAnchorView(videoView)
         videoView.setMediaController(mediaController)
+        if (postExample.secureMedia?.RedditVideo?.urlVideo != null){
+            val paramsPostVideo = videoView.layoutParams
+            paramsPostVideo.height = 1200
+            videoView.layoutParams = paramsPostVideo
+
+            val socialBar = binding.clsocialbar
+            val paramsSocialBar = socialBar.layoutParams as ConstraintLayout.LayoutParams
+            paramsSocialBar.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+            paramsSocialBar.topToBottom = R.id.vvPostVideo
+
+        }
+
         binding.vvPostVideo.setVideoURI(Uri.parse(postExample.secureMedia?.RedditVideo?.urlVideo.toString()))
 
-
+        if (postExample.secureMedia?.RedditVideo?.urlVideo.toString() == "null"){
+            binding.tvTitle.setOnClickListener{Toast.makeText(videoView.context,"Sin Url",Toast.LENGTH_LONG).show()}
+        } else {
+            binding.tvTitle.setOnClickListener {
+                Toast.makeText(
+                    videoView.context,
+                    (postExample.secureMedia?.RedditVideo?.urlVideo.toString()),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
         //binding.tvTitle.text = postExample.secureMedia?.RedditVideo?.urlVideo.toString()
 
         binding.tvCounterVotes.text = postCounterVotesResume

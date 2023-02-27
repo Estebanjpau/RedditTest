@@ -110,10 +110,10 @@
         android:id="@+id/vvPostVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:orientation="horizontal"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <View
         android:layout_width="1dp"
@@ -125,6 +125,7 @@
         android:id="@+id/clsocialbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        app:flow_horizontalAlign="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivPostImage">
 
