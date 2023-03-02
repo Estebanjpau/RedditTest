@@ -131,24 +131,25 @@
 
         <ImageButton
             android:id="@+id/ibUpVote"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_margin="6dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
             android:layout_marginStart="32dp"
             android:background="@drawable/arrow_fat_up_bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/clsocialbar" />
+            app:layout_constraintTop_toTopOf="@id/clsocialbar"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/tvCounterVotes"
             android:layout_width="38dp"
             android:layout_height="20dp"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="6dp"
             android:textAlignment="center"
             android:textColor="@color/grey_semidark"
-            android:textSize="14sp"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/clsocialbar"
             app:layout_constraintEnd_toStartOf="@id/ibDownVote"
             app:layout_constraintStart_toEndOf="@id/ibUpVote"
             app:layout_constraintTop_toTopOf="@id/clsocialbar"
@@ -156,8 +157,8 @@
 
         <ImageButton
             android:id="@+id/ibDownVote"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_margin="6dp"
             android:background="@drawable/arrow_fat_down_bold"
             app:layout_constraintStart_toEndOf="@id/tvCounterVotes"
@@ -165,11 +166,11 @@
 
         <ImageButton
             android:id="@+id/ibCounterComment"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="6dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/chat_bubble_left"
             app:layout_constraintEnd_toStartOf="@id/tvCounterComment"
             app:layout_constraintStart_toEndOf="@id/ibDownVote"
@@ -180,14 +181,24 @@
             android:layout_width="38dp"
             android:layout_height="20dp"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="6dp"
             android:textAlignment="center"
             android:textColor="@color/grey_semidark"
-            android:textSize="14sp"
+            android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@id/ibCounterComment"
             app:layout_constraintTop_toTopOf="@id/clsocialbar"
+            app:layout_constraintBottom_toBottomOf="@id/clsocialbar"
             tools:text="80K" />
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/share_outline"
+            app:layout_constraintStart_toEndOf="@id/tvCounterComment"
+            app:layout_constraintTop_toTopOf="@id/clsocialbar" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

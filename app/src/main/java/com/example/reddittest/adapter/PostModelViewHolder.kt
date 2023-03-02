@@ -8,13 +8,13 @@ import android.widget.VideoView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.example.reddittest.MainActivity
 import com.example.reddittest.PostModel
 import com.example.reddittest.PostUtils
 import com.example.reddittest.R
 import com.example.reddittest.databinding.ItemPostBinding
 
-
-class PostModelViewHolder(view: View) : ViewHolder(view) {
+class PostModelViewHolder(view: View, private val mainInstance:MainActivity) : ViewHolder(view) {
 
     private val binding = ItemPostBinding.bind(view)
 
@@ -49,7 +49,9 @@ class PostModelViewHolder(view: View) : ViewHolder(view) {
         videoView.setMediaController(mediaController)
         if (postExample.secureMedia?.RedditVideo?.urlVideo != null){
             val paramsPostVideo = videoView.layoutParams
-            paramsPostVideo.height = 1200
+
+            paramsPostVideo.width = mainInstance.displayWidth
+            paramsPostVideo.height = mainInstance.displayHeight
             videoView.layoutParams = paramsPostVideo
 
             val socialBar = binding.clsocialbar

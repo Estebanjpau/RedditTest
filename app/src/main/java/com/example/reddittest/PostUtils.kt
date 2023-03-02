@@ -1,8 +1,7 @@
 package com.example.reddittest
 
-import android.view.View
+import android.util.DisplayMetrics
 import java.util.concurrent.TimeUnit
-import com.example.reddittest.databinding.ItemPostBinding
 
 private const val SECOND_MILLIS = 1
 private const val MINUTE_MILLIS = 60 * SECOND_MILLIS
@@ -35,7 +34,7 @@ object PostUtils {
     fun resumeCounterNumber(number: Int): String {
 
         var result = number.toString()
-        if (number > 999) {
+        if (number > 9999) {
             result = if (number <= 999999) {
                 String.format("%.1fK", number.toFloat() / 1000)
             } else {
