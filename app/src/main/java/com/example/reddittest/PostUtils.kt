@@ -1,6 +1,5 @@
 package com.example.reddittest
 
-import android.util.DisplayMetrics
 import java.util.concurrent.TimeUnit
 
 private const val SECOND_MILLIS = 1

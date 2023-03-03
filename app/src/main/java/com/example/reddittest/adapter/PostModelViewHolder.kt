@@ -14,9 +14,11 @@ import com.example.reddittest.PostUtils
 import com.example.reddittest.R
 import com.example.reddittest.databinding.ItemPostBinding
 
-class PostModelViewHolder(view: View, private val mainInstance:MainActivity) : ViewHolder(view) {
+class PostModelViewHolder(view: View, private val mainInstance: MainActivity) : ViewHolder(view) {
 
     private val binding = ItemPostBinding.bind(view)
+
+    var postVoteDir = "0"
 
     fun paint(postExample: PostModel) {
 
@@ -32,6 +34,17 @@ class PostModelViewHolder(view: View, private val mainInstance:MainActivity) : V
             PostUtils.resumeCounterNumber(it.toInt())
         }
 
+        binding.ibUpVote.setOnClickListener {
+            if (postVoteDir == "0" || postVoteDir == "-1"){
+                postVoteDir = "1"
+            } else {postVoteDir = "0"}
+        }
+
+        binding.ibDownVote.setOnClickListener{
+            if (postVoteDir == "0" || postVoteDir == "1"){
+                postVoteDir = "-1"
+            } else {postVoteDir = "0"}
+        }
 
         binding.tvUserId.text = postExample.userId
         binding.tvAlias.text = postExample.alias
@@ -43,11 +56,11 @@ class PostModelViewHolder(view: View, private val mainInstance:MainActivity) : V
             .into(binding.ivPostImage)
 
         var videoView: VideoView = binding.vvPostVideo
-        val mediaController =  MediaController(videoView.context)
+        val mediaController = MediaController(videoView.context)
         mediaController.setMediaPlayer(videoView)
         mediaController.setAnchorView(videoView)
         videoView.setMediaController(mediaController)
-        if (postExample.secureMedia?.RedditVideo?.urlVideo != null){
+        if (postExample.secureMedia?.RedditVideo?.urlVideo != null) {
             val paramsPostVideo = videoView.layoutParams
 
             paramsPostVideo.width = mainInstance.displayWidth
@@ -63,15 +76,13 @@ class PostModelViewHolder(view: View, private val mainInstance:MainActivity) : V
 
         binding.vvPostVideo.setVideoURI(Uri.parse(postExample.secureMedia?.RedditVideo?.urlVideo.toString()))
 
-        if (postExample.secureMedia?.RedditVideo?.urlVideo.toString() == "null"){
-            binding.tvTitle.setOnClickListener{Toast.makeText(videoView.context,"Sin Url",Toast.LENGTH_LONG).show()}
+        if (postExample.secureMedia?.RedditVideo?.urlVideo.toString() == "null") {
+            binding.tvTitle.setOnClickListener {
+                Toast.makeText(videoView.context, "Sin Url", Toast.LENGTH_LONG).show()
+            }
         } else {
             binding.tvTitle.setOnClickListener {
-                Toast.makeText(
-                    videoView.context,
-                    (postExample.secureMedia?.RedditVideo?.urlVideo.toString()),
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(videoView.context, (postExample.secureMedia?.RedditVideo?.urlVideo.toString()), Toast.LENGTH_LONG).show()
             }
         }
         //binding.tvTitle.text = postExample.secureMedia?.RedditVideo?.urlVideo.toString()

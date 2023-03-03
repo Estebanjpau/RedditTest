@@ -16,9 +16,9 @@ class FetchAccessTokenTask(private val listener: AccessTokenListener) : AsyncTas
 
         val credentials = Credentials.basic(username!!, password!!)
         val requestBody = FormBody.Builder()
-            .add("grant_type","password")
-            .add("username","estebanjpau")
-            .add("password","wd1qi5fl")
+            .add("grant_type", "password")
+            .add("username", "estebanjpau")
+            .add("password", "wd1qi5fl")
             .build()
         val request = Request.Builder()
             .url("https://www.reddit.com/api/v1/access_token")
@@ -37,5 +37,5 @@ class FetchAccessTokenTask(private val listener: AccessTokenListener) : AsyncTas
 }
 
 interface AccessTokenListener {
-    fun onAccessTokenFetched(accessToken: String?)
+    fun onAccessTokenFetched(getAccessToken: String?){}
 }

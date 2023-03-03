@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
     private val posts = mutableListOf<PostModel>()
     private lateinit var mainInstance : MainActivity
 
+    var accessToken = ""
     var displayWidth = 1200
     var displayHeight = 1200
 
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         window.navigationBarColor = this.resources.getColor(R.color.dark_mode)
     }
 
-    override fun onAccessTokenFetched(accessToken: String?) {
-        println(accessToken)
+    override fun onAccessTokenFetched(getAccessToken: String?) {
+        accessToken = getAccessToken.toString()
     }
 }
