@@ -85,7 +85,6 @@ class PostModelViewHolder(view: View, private val mainInstance: MainActivity) : 
                 Toast.makeText(videoView.context, (postExample.secureMedia?.RedditVideo?.urlVideo.toString()), Toast.LENGTH_LONG).show()
             }
         }
-        //binding.tvTitle.text = postExample.secureMedia?.RedditVideo?.urlVideo.toString()
 
         binding.tvCounterVotes.text = postCounterVotesResume
         binding.tvCounterComment.text = postCounterCommentResume

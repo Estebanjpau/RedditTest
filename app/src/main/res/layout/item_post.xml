@@ -129,11 +129,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivPostImage">
 
-        <ImageButton
+        <ToggleButton
             android:id="@+id/ibUpVote"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="8dp"
+            android:state_checked="true"
             android:layout_marginStart="32dp"
             android:background="@drawable/up_vote_setup"
             app:layout_constraintStart_toStartOf="parent"
@@ -159,7 +160,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="6dp"
-            android:background="@drawable/arrow_fat_down"
+            android:background="@drawable/down_vote_setup"
             app:layout_constraintStart_toEndOf="@id/tvCounterVotes"
             app:layout_constraintTop_toTopOf="@id/clsocialbar" />
 
