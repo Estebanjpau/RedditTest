@@ -12,13 +12,14 @@ import com.example.reddittest.MainActivity
 import com.example.reddittest.PostModel
 import com.example.reddittest.PostUtils
 import com.example.reddittest.R
+import com.example.reddittest.api.GetVoteDir
 import com.example.reddittest.databinding.ItemPostBinding
 
-class PostModelViewHolder(view: View, private val mainInstance: MainActivity) : ViewHolder(view) {
+class PostModelViewHolder(view: View, private val mainInstance: MainActivity): ViewHolder(view){
 
     private val binding = ItemPostBinding.bind(view)
 
-    var postVoteDir = "0"
+    var postVoteDir = ""
 
     fun paint(postExample: PostModel) {
 
@@ -34,20 +35,30 @@ class PostModelViewHolder(view: View, private val mainInstance: MainActivity) : 
             PostUtils.resumeCounterNumber(it.toInt())
         }
 
-        binding.ibUpVote.setOnClickListener {
-            if (postVoteDir == "0" || postVoteDir == "-1"){
-                postVoteDir = "1"
-            } else {postVoteDir = "0"}
+        try {
+            val getVote = GetVoteDir(postExample.subreddit,postExample.postId, mainInstance.accessToken,postExample.userId)
+            val PostVoteDir = getVote.GetPostDirInBackground()
+            println(PostVoteDir)
+        } catch (e:java.lang.Exception){
+                println("Error al hacer la llamada: ${e.message}")
         }
 
-        binding.ibDownVote.setOnClickListener{
-            if (postVoteDir == "0" || postVoteDir == "1"){
-                postVoteDir = "-1"
-            } else {postVoteDir = "0"}
+
+        binding.tbUpVote.setOnClickListener {
+            if (postVoteDir == "null" || postVoteDir == "false"){
+                postVoteDir = "true"
+                binding.tbUpVote.isChecked = true
+            } else {binding.tbUpVote.isChecked = false}
+        }
+
+        binding.tbDownVote.setOnClickListener{
+            if (postVoteDir == "null" || postVoteDir == "true"){
+                postVoteDir = "false"
+            } else {postVoteDir = "null"}
         }
 
         binding.tvUserId.text = postExample.userId
-        binding.tvAlias.text = postExample.alias
+        binding.tvAlias.text = postExample.subreddit
         binding.tvTitle.text = postExample.title
         binding.tvTimeAgo.text = postTimeAgo
         Glide.with(binding.ivUserPhoto.context).load(postExample.userPhoto)

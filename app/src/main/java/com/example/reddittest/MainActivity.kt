@@ -35,8 +35,6 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //getToken()
-
         val fetchAccessTokenTask = FetchAccessTokenTask(this)
         fetchAccessTokenTask.execute("4ICQyJNWimrCLb7plegtvg", "cEA_Ztz1MH99kzs8gk5iJJdG2YSQTA")
 
@@ -71,7 +69,9 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
             if (call.isSuccessful) {
                 runOnUiThread {
                     posts.addAll(response?.data?.children?.map { it.data } ?: listOf())
-                    adapter.notifyDataSetChanged()
+                    if (accessToken.isNotEmpty()) {
+                        adapter.notifyDataSetChanged()
+                    }
                 }
             }
         }
@@ -87,5 +87,8 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
 
     override fun onAccessTokenFetched(getAccessToken: String?) {
         accessToken = getAccessToken.toString()
+        if (posts.isNotEmpty()) {
+            adapter.notifyDataSetChanged()
+        }
     }
 }

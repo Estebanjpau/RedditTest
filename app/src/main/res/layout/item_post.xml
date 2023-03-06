@@ -130,13 +130,15 @@
         app:layout_constraintTop_toBottomOf="@id/ivPostImage">
 
         <ToggleButton
-            android:id="@+id/ibUpVote"
+            android:id="@+id/tbUpVote"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="8dp"
-            android:state_checked="true"
             android:layout_marginStart="32dp"
             android:background="@drawable/up_vote_setup"
+            android:checked="false"
+            android:textOff=""
+            android:textOn=""
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/clsocialbar" />
 
@@ -150,17 +152,20 @@
             android:textColor="@color/grey_semidark"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/clsocialbar"
-            app:layout_constraintEnd_toStartOf="@id/ibDownVote"
-            app:layout_constraintStart_toEndOf="@id/ibUpVote"
+            app:layout_constraintEnd_toStartOf="@id/tbDownVote"
+            app:layout_constraintStart_toEndOf="@id/tbUpVote"
             app:layout_constraintTop_toTopOf="@id/clsocialbar"
             tools:text="80K" />
 
-        <ImageButton
-            android:id="@+id/ibDownVote"
+        <ToggleButton
+            android:id="@+id/tbDownVote"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="6dp"
             android:background="@drawable/down_vote_setup"
+            android:checked="false"
+            android:textOn=""
+            android:textOff=""
             app:layout_constraintStart_toEndOf="@id/tvCounterVotes"
             app:layout_constraintTop_toTopOf="@id/clsocialbar" />
 
@@ -173,7 +178,7 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/chat_bubble_left"
             app:layout_constraintEnd_toStartOf="@id/tvCounterComment"
-            app:layout_constraintStart_toEndOf="@id/ibDownVote"
+            app:layout_constraintStart_toEndOf="@id/tbDownVote"
             app:layout_constraintTop_toTopOf="@id/clsocialbar" />
 
         <TextView
@@ -185,9 +190,9 @@
             android:textAlignment="center"
             android:textColor="@color/grey_semidark"
             android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/clsocialbar"
             app:layout_constraintStart_toEndOf="@id/ibCounterComment"
             app:layout_constraintTop_toTopOf="@id/clsocialbar"
-            app:layout_constraintBottom_toBottomOf="@id/clsocialbar"
             tools:text="80K" />
 
         <ImageButton

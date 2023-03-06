@@ -21,7 +21,7 @@ data class TopDataItem(
 
 data class PostModel(
     @SerializedName("subreddit")
-    val alias: String,
+    val subreddit: String,
     @SerializedName("score")
     val counterVotes: String,
     @SerializedName("num_comments")
