@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
     private val posts = mutableListOf<PostModel>()
     private lateinit var mainInstance : MainActivity
 
-    var accessToken = ""
+    var access_token = ""
     var displayWidth = 1200
     var displayHeight = 1200
 
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
             if (call.isSuccessful) {
                 runOnUiThread {
                     posts.addAll(response?.data?.children?.map { it.data } ?: listOf())
-                    if (accessToken.isNotEmpty()) {
+                    if (access_token.isNotEmpty()) {
                         adapter.notifyDataSetChanged()
                     }
                 }
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
     }
 
     override fun onAccessTokenFetched(getAccessToken: String?) {
-        accessToken = getAccessToken.toString()
+        access_token = getAccessToken.toString()
         if (posts.isNotEmpty()) {
             adapter.notifyDataSetChanged()
         }

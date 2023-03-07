@@ -1,22 +1,20 @@
 package com.example.reddittest.api
 
-import android.os.Handler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.json.JSONObject
-import java.io.IOException
+import org.json.JSONArray
 
 class GetVoteDir(
     val subreddit: String,
     val postId: String,
     val authtoken: String,
-    val username: String
+    val username: String,
+    var voteDir: String = ""
 ) {
-
-    private val handler: Handler = Handler()
 
     fun makeCall(): String {
         val url = "https://oauth.reddit.com/r/${subreddit}/comments/${postId}/?limit=1"
@@ -33,28 +31,23 @@ class GetVoteDir(
 
         val response = client.newCall(request).execute()
         response.use {
-            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+            if (response.isSuccessful) {
 
-            val jsonResponse = JSONObject(response.body?.string() ?: "")
-            val postArray = jsonResponse.getJSONArray("data").getJSONArray(0)
-            val postObject = postArray.getJSONObject(0)
+                val jsonResponse = JSONArray(response.body?.string() ?: "")
+                val dataObject =
+                    jsonResponse.getJSONObject(0).getJSONObject("data").getJSONArray("children")
+                        .getJSONObject(0).getJSONObject("data")
 
-            val voteDir = postObject.getString("likes")
-
-            return voteDir.toString()
+                val childrenArray = dataObject.getString("likes")
+                voteDir = childrenArray
+            }
+            return voteDir
         }
     }
 
-    fun GetPostDirInBackground() {
-        CoroutineScope(Dispatchers.IO).launch {
-            var result = ""
-
-            result = makeCall()
-            if (result == "true" || result == "false" || result == "null") {
-                handler.post(Runnable {
-                    result
-                })
-            }
+    fun GetPostDirInBackground() : Deferred<String> {
+        return CoroutineScope(Dispatchers.IO).async {
+            makeCall()
         }
     }
 }

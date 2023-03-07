@@ -5,6 +5,7 @@ import okhttp3.Credentials
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONObject
 
 class FetchAccessTokenTask(private val listener: AccessTokenListener) : AsyncTask<String, Void, String>() {
 
@@ -27,7 +28,8 @@ class FetchAccessTokenTask(private val listener: AccessTokenListener) : AsyncTas
             .build()
 
         val response = client.newCall(request).execute()
-        return response.body?.string() ?: ""
+        val jsonResponse = JSONObject(response.body?.string() ?: "")
+        return jsonResponse.getString("access_token")
     }
 
     override fun onPostExecute(result: String?) {

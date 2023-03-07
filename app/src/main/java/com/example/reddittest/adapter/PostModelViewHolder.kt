@@ -14,11 +14,13 @@ import com.example.reddittest.PostUtils
 import com.example.reddittest.R
 import com.example.reddittest.api.GetVoteDir
 import com.example.reddittest.databinding.ItemPostBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
-class PostModelViewHolder(view: View, private val mainInstance: MainActivity): ViewHolder(view){
+class PostModelViewHolder(view: View, private val mainInstance: MainActivity) : ViewHolder(view) {
 
     private val binding = ItemPostBinding.bind(view)
-
     var postVoteDir = ""
 
     fun paint(postExample: PostModel) {
@@ -35,26 +37,47 @@ class PostModelViewHolder(view: View, private val mainInstance: MainActivity): V
             PostUtils.resumeCounterNumber(it.toInt())
         }
 
-        try {
-            val getVote = GetVoteDir(postExample.subreddit,postExample.postId, mainInstance.accessToken,postExample.userId)
-            val PostVoteDir = getVote.GetPostDirInBackground()
-            println(PostVoteDir)
-        } catch (e:java.lang.Exception){
-                println("Error al hacer la llamada: ${e.message}")
+        fun refreshVote() {
+            val getVote = GetVoteDir(postExample.subreddit, postExample.postId, mainInstance.access_token, postExample.userId)
+            val deferredResult = GlobalScope.async {
+                getVote.GetPostDirInBackground().await()
+            }
+
+            postVoteDir = runBlocking {
+                deferredResult.await()
+            }
         }
 
+        refreshVote()
+
+        if (postVoteDir == "null"){
+            binding.tbUpVote.isChecked = false
+            binding.tbDownVote.isChecked = false
+        }
+
+        if (postVoteDir == "true"){
+            binding.tbUpVote.isChecked = true
+        }
+
+        if (postVoteDir == "false"){
+            binding.tbDownVote.isChecked = true
+        }
 
         binding.tbUpVote.setOnClickListener {
-            if (postVoteDir == "null" || postVoteDir == "false"){
+            if (postVoteDir == "null" || postVoteDir == "false") {
                 postVoteDir = "true"
                 binding.tbUpVote.isChecked = true
-            } else {binding.tbUpVote.isChecked = false}
+            } else {
+                binding.tbUpVote.isChecked = false
+            }
         }
 
-        binding.tbDownVote.setOnClickListener{
-            if (postVoteDir == "null" || postVoteDir == "true"){
+        binding.tbDownVote.setOnClickListener {
+            if (postVoteDir == "null" || postVoteDir == "true") {
                 postVoteDir = "false"
-            } else {postVoteDir = "null"}
+            } else {
+                postVoteDir = "null"
+            }
         }
 
         binding.tvUserId.text = postExample.userId
@@ -93,7 +116,11 @@ class PostModelViewHolder(view: View, private val mainInstance: MainActivity): V
             }
         } else {
             binding.tvTitle.setOnClickListener {
-                Toast.makeText(videoView.context, (postExample.secureMedia?.RedditVideo?.urlVideo.toString()), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    videoView.context,
+                    (postExample.secureMedia?.RedditVideo?.urlVideo.toString()),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
