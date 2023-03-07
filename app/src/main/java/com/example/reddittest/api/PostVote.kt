@@ -1,37 +1,32 @@
 package com.example.reddittest.api
 
-import android.os.AsyncTask
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 
-class PostVote(val id:String, val dir:String,val accesstoken:String) :
-    AsyncTask<Void, Void, Boolean>() {
-
-    override fun doInBackground(vararg params: Void?): Boolean? {
-        val client = OkHttpClient()
-        val url = "https://oauth.reddit.com/api/vote"
-        val requestBody = FormBody.Builder()
-            .add("id", id)
-            .add("dir", dir)
-            .build()
-        val request = Request.Builder()
-            .url(url)
-            .addHeader("Authorization", "Bearer ${accesstoken}")
-            .post(requestBody)
-            .build()
+suspend fun postVote(id:String, dir:String, accesstoken:String): Boolean {
+    val client = OkHttpClient()
+    val url = "https://oauth.reddit.com/api/vote"
+    val requestBody = FormBody.Builder()
+        .add("id", id)
+        .add("dir", dir)
+        .build()
+    val request = Request.Builder()
+        .url(url)
+        .addHeader("Authorization", "Bearer ${accesstoken}")
+        .post(requestBody)
+        .build()
+    return withContext(Dispatchers.IO) {
         try {
             val response = client.newCall(request).execute()
-            return response.isSuccessful
+            response.isSuccessful
         } catch (e: IOException) {
             e.printStackTrace()
-        }
-        return false
-    }
-
-    override fun onPostExecute(result: Boolean?) {
-        if (result == true) {
+            false
         }
     }
 }
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_post"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_post_video"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -101,11 +101,10 @@
 
     <ImageView
         android:id="@+id/ivPostImage"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <VideoView
         android:id="@+id/vvPostVideo"
@@ -120,7 +119,7 @@
         android:layout_width="1dp"
         android:layout_height="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivPostImage" />
+        app:layout_constraintTop_toBottomOf="@id/vvPostVideo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clsocialbar"
@@ -128,7 +127,7 @@
         android:layout_height="40dp"
         app:flow_horizontalAlign="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivPostImage">
+        app:layout_constraintTop_toBottomOf="@id/vvPostVideo">
 
         <ToggleButton
             android:id="@+id/tbUpVote"

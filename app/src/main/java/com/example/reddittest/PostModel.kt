@@ -26,16 +26,18 @@ data class PostModel(
     val counterVotes: String,
     @SerializedName("num_comments")
     val counterComments: String,
+    @SerializedName("name")
+    val fullnamePostId: String,
     @SerializedName("id")
     val postId: String,
     @SerializedName("author")
     val userId: String,
     @SerializedName("created_utc")
     val created_at: String,
-    @SerializedName("userPhoto")
-    val userPhoto: String,
     @SerializedName("title")
     val title: String,
+    @SerializedName("is_video")
+    val isVideo: Boolean,
     @SerializedName("url")
     val postPhoto: String,
     @SerializedName("media")

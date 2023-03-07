@@ -8,12 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 
-class GetVoteDir(
-    val subreddit: String,
-    val postId: String,
-    val authtoken: String,
-    val username: String,
-    var voteDir: String = ""
+class GetVoteDir(val subreddit: String, val postId: String, val authtoken: String, val username: String, var voteDir: String = ""
 ) {
 
     fun makeCall(): String {

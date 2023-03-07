@@ -3,6 +3,7 @@ package com.example.reddittest.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.reddittest.MainActivity
 import com.example.reddittest.PostModel
 import com.example.reddittest.R
@@ -12,8 +13,17 @@ class PostModelAdapter(private val providerList: List<PostModel>,private val mai
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostModelViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
+        val item = providerList[viewType]
 
-        return PostModelViewHolder(layoutInflater.inflate(R.layout.item_post, parent, false),mainInstance)
+        return if(item.isVideo == true){
+
+               val view = layoutInflater.inflate(R.layout.item_post_video, parent, false)
+               PostModelVideoViewHolder(view, mainInstance)
+           } else {
+                val view = layoutInflater.inflate(R.layout.item_post, parent, false)
+                PostModelImageViewHolder(view, mainInstance)
+            }
+            //    PostModelImageViewHolder(layoutInflater.inflate(R.layout.item_post, parent, false),mainInstance)
     }
 
     override fun onBindViewHolder(holder: PostModelViewHolder, position: Int) {
@@ -22,4 +32,8 @@ class PostModelAdapter(private val providerList: List<PostModel>,private val mai
     }
 
     override fun getItemCount(): Int = providerList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
 }
