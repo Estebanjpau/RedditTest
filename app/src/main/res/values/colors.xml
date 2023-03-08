@@ -8,6 +8,8 @@
     <color name="black">#0A0B0C</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="transparent">#00000000</color>
+    <color name="semitransparent_dark">#88000000</color>
 
     <color name="dark_mode">#18191A</color>
 

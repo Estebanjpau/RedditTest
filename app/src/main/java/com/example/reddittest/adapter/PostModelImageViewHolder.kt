@@ -1,7 +1,6 @@
 package com.example.reddittest.adapter
 
 import android.view.View
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.reddittest.MainActivity
 import com.example.reddittest.PostModel
