@@ -1,18 +1,16 @@
 <resources>
-    <string name="app_name">Reddit</string>
+    <string name="app_name">RedditTest</string>
+
     <string name="main_button">Principal</string>
     <string name="search_button">Descubrir</string>
     <string name="post_button">Crear</string>
     <string name="chat_button">Chat</string>
     <string name="message_button">Mensaje</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="testmessage">Recuerda, esta aplicación no es oficial, la información suministrada será utilizada únicamente para testear esta aplicación</string>
     <string name="user">Usuario</string>
-
     <string name="password">Contraseña</string>
-    <string name="Continuetext">Continuar</string>
-    <string name="testmessage">Recuerda, esta aplicación no es oficial, la información suministrada será utilizada únicamente para testear esta aplicacion</string>
-    <string name="termsofuse">Al continuar, aceptas nuestro Acuerdo del usuario y la Política de privacidad.</string>
+    <string name="termsofuse">Al continuar, acetpas nuestro Acuerdo de usuario y la politica de privacidad</string>
+    <string name="continuetext">Continuar</string>
 
 </resources>

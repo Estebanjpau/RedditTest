@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="transparent">#00000000</color>
-    <color name="semitransparent_dark">#88000000</color>
+    <color name="semitransparent_black">#60000000</color>
 
     <color name="dark_mode">#18191A</color>
 

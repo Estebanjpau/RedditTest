@@ -1,6 +1,7 @@
 package com.example.reddittest.api
 
 import okhttp3.*
+import okhttp3.Callback
 import java.io.IOException
 
 interface CheckAvailableUsername {
@@ -22,6 +23,7 @@ interface CheckAvailableUsername {
                 override fun onResponse(call: Call, response: Response) {
                     val jsonResponse = response.body?.string()
                     val isAvailable = jsonResponse?.toBoolean()
+                    println(isAvailable)
                     onComplete(isAvailable ?: false)
                 }
             })

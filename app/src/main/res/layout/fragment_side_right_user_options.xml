@@ -97,7 +97,7 @@
             android:layout_height="35dp"
             android:layout_margin="10dp"
             android:background="@drawable/rectangle_round_red"
-            android:text="@string/Continuetext"
+            android:text="@string/continuetext"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/grey_light"
             android:textSize="14sp"
