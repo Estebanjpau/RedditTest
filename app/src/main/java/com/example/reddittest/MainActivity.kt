@@ -1,15 +1,15 @@
 package com.example.reddittest
 
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.view.animation.AlphaAnimation
+import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -38,24 +38,23 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
     var displayWidth = 1200
     var displayHeight = 1200
 
+    val fetchAccessTokenTask = FetchAccessTokenTask()
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val fetchAccessTokenTask = FetchAccessTokenTask(this)
-        fetchAccessTokenTask.execute("4ICQyJNWimrCLb7plegtvg", "cEA_Ztz1MH99kzs8gk5iJJdG2YSQTA","estebanjpau","wd1qi5fl")
-
-        getDarkModeWindow()
-        initFragmentSRUO()
-
         mainInstance = this
         displayWidth = this.resources.displayMetrics.widthPixels
         displayHeight = this.resources.displayMetrics.heightPixels
 
-        initRecyclerView()
-        getTop()
+        getDarkModeWindow()
+
+        initFragmentSRUO()
+        showFragmentSRUO()
+        LockFragmentSRUO()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -67,17 +66,21 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         return when (item.itemId) {
             R.id.menu_item_fragmento -> {
                 val fragment =
-                    supportFragmentManager.findFragmentById(R.id.flSideRightFragmenUserOptions)
+                    supportFragmentManager.findFragmentById(R.id.fl_SideRightFragmenUserOptions)
                         ?: return true
                 if (fragment.isVisible) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        hideFragmentSRUO()
-                    }, 70)
-                    val constraintLayout = findViewById<ConstraintLayout>(R.id.cl_ContentSRUO)
-                    val animation = AlphaAnimation(1f, 0f)
-                    animation.duration = 200
-                    constraintLayout.startAnimation(animation)
-                    constraintLayout.visibility = View.INVISIBLE
+                    if(access_token.isNotEmpty()) {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            hideFragmentSRUO()
+                        }, 70)
+                        val constraintLayout = findViewById<ConstraintLayout>(R.id.cl_ContentSRUO)
+                        val animation = AlphaAnimation(1f, 0f)
+                        animation.duration = 200
+                        constraintLayout.startAnimation(animation)
+                        constraintLayout.visibility = View.INVISIBLE
+                    } else {
+                        Toast.makeText(this,"Inicie sesión para continuar",Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     val constraintLayout = findViewById<ConstraintLayout>(R.id.cl_ContentSRUO)
                     val animation = AlphaAnimation(0f, 1f)
@@ -127,8 +130,16 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onAccessTokenFetched(getAccessToken: String?) {
+        access_token = getAccessToken.toString()
+        if (posts.isNotEmpty()) {
+            adapter.notifyDataSetChanged()
+        }
+    }
+
     fun hideSRUOfragmentOnClick(view: View) {
-        val fragment = supportFragmentManager.findFragmentById(R.id.flSideRightFragmenUserOptions)
+        val fragment = supportFragmentManager.findFragmentById(R.id.fl_SideRightFragmenUserOptions)
         if (fragment != null) {
             if (fragment.isVisible) {
                 supportFragmentManager.beginTransaction()
@@ -144,17 +155,9 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onAccessTokenFetched(getAccessToken: String?) {
-        access_token = getAccessToken.toString()
-        if (posts.isNotEmpty()) {
-            adapter.notifyDataSetChanged()
-        }
-    }
-
     fun initFragmentSRUO() {
         supportFragmentManager.beginTransaction()
-            .add(R.id.flSideRightFragmenUserOptions, fragment)
+            .add(R.id.fl_SideRightFragmenUserOptions, fragment)
             .hide(fragment)
             .commit()
     }
@@ -177,6 +180,54 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         }
     }
 
+    fun LockFragmentSRUO(){
+        if(access_token.isEmpty()){
+            val frameLayout = findViewById<FrameLayout>(R.id.fl_SideRightFragmenUserOptions)
+            val layoutParams2 = frameLayout.layoutParams
+            layoutParams2.width = ViewGroup.LayoutParams.MATCH_PARENT
+            frameLayout.layoutParams = layoutParams2
+        }
+    }
+
+    @SuppressLint("Recycle")
+    fun unlockFragmentSRUO() {
+        if (access_token.isNotEmpty()) {
+
+            val frameLayout = findViewById<FrameLayout>(R.id.fl_SideRightFragmenUserOptions)
+            val layoutParams = frameLayout.layoutParams
+            layoutParams.width = 750
+            frameLayout.layoutParams = layoutParams
+
+//                val anim = ValueAnimator.ofInt(displayWidth, 280)
+//                anim.duration = 500
+//                anim.addUpdateListener { valueAnimator ->
+//                    val value = valueAnimator.animatedValue as Int
+//                    val layoutParams = frameLayout.layoutParams
+//                    layoutParams.width = value
+//                    frameLayout.layoutParams = layoutParams
+//                }
+
+        }
+    }
+
+    fun loginAccount() {
+        fetchAccessTokenTask.setAccessTokenListener(object : AccessTokenListener {
+            override fun onAccessTokenFetched(getAccessToken: String?) {
+                if (!getAccessToken.isNullOrEmpty()) {
+                    access_token = getAccessToken
+                    initRecyclerView()
+                    getTop()
+                    unlockFragmentSRUO()
+                    hideFragmentSRUO()
+                } else {
+                    Toast.makeText(this@MainActivity, "Contraseña equivocada", Toast.LENGTH_SHORT).show()
+                    fragment.binding.etSruopassword.setText("")
+                }
+            }
+        })
+        fetchAccessTokenTask.execute("4ICQyJNWimrCLb7plegtvg", "cEA_Ztz1MH99kzs8gk5iJJdG2YSQTA", fragment.loginUser, fragment.passwordUser)
+    }
+
     private fun getDarkModeWindow(){
         val window = this.window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -184,5 +235,4 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         window.statusBarColor = this.resources.getColor(R.color.dark_mode)
         window.navigationBarColor = this.resources.getColor(R.color.dark_mode)
     }
-
 }

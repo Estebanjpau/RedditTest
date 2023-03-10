@@ -185,20 +185,23 @@
         android:id="@+id/cl_ContentSRUO"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        tools:layout_width="0dp"
         android:visibility="invisible"
         android:onClick="hideSRUOfragmentOnClick"
         android:background="@color/semitransparent_black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/flSideRightFragmenUserOptions"
+        app:layout_constraintEnd_toStartOf="@+id/fl_SideRightFragmenUserOptions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/flSideRightFragmenUserOptions"
-        android:layout_width="280dp"
-        android:layout_height="match_parent"
+    <FrameLayout
+        android:id="@+id/fl_SideRightFragmenUserOptions"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:layout_width="285dp"
         app:layout_constraintBottom_toBottomOf="@+id/ly_navigationbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

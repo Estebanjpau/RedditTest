@@ -8,12 +8,18 @@ import okhttp3.Credentials
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
-class FetchAccessTokenTask(private val listener: AccessTokenListener) {
+class FetchAccessTokenTask {
 
     private val client = OkHttpClient()
+    private var accessTokenListener: AccessTokenListener? = null
+
+    fun setAccessTokenListener(listener: AccessTokenListener) {
+        accessTokenListener = listener
+    }
 
     fun execute(username: String?, password: String?, loginUser: String, loginPassword: String) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -32,14 +38,18 @@ class FetchAccessTokenTask(private val listener: AccessTokenListener) {
 
                 val response = client.newCall(request).execute()
                 val jsonResponse = JSONObject(response.body?.string() ?: "")
-                val accessToken = jsonResponse.getString("access_token")
+                val accessToken = jsonResponse.optString("access_token")
 
                 withContext(Dispatchers.Main) {
-                    listener.onAccessTokenFetched(accessToken)
+                    accessTokenListener?.onAccessTokenFetched(accessToken)
                 }
             } catch (e: IOException) {
                 withContext(Dispatchers.Main) {
-                    listener.onAccessTokenFetched(null)
+                    accessTokenListener?.onAccessTokenFetched(null)
+                }
+            } catch (e: JSONException) {
+                withContext(Dispatchers.Main) {
+                    accessTokenListener?.onAccessTokenFetched(null)
                 }
             }
         }
@@ -47,5 +57,5 @@ class FetchAccessTokenTask(private val listener: AccessTokenListener) {
 }
 
 interface AccessTokenListener {
-    fun onAccessTokenFetched(getAccessToken: String?) {}
+    fun onAccessTokenFetched(getAccessToken: String?)
 }

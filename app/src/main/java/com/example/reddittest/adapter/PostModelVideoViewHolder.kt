@@ -33,12 +33,14 @@ class PostModelVideoViewHolder(view: View, private val mainInstance: MainActivit
         }
 
         fun refreshVote() {
-            val getVote = GetVoteDir(postExample.subreddit, postExample.postId, mainInstance.access_token, postExample.userId)
-            val deferredResult = GlobalScope.async {
-                getVote.GetPostDirInBackground().await()
-            }
-            postVoteDir = runBlocking {
-                deferredResult.await()
+            if(mainInstance.access_token.isNotEmpty()) {
+                val getVote = GetVoteDir(postExample.subreddit, postExample.postId, mainInstance.access_token, postExample.userId)
+                val deferredResult = GlobalScope.async {
+                    getVote.GetPostDirInBackground().await()
+                }
+                postVoteDir = runBlocking {
+                    deferredResult.await()
+                }
             }
         }
 

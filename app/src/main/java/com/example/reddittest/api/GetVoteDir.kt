@@ -28,6 +28,7 @@ class GetVoteDir(val subreddit: String, val postId: String, val authtoken: Strin
         response.use {
             if (response.isSuccessful) {
 
+
                 val jsonResponse = JSONArray(response.body?.string() ?: "")
                 val dataObject =
                     jsonResponse.getJSONObject(0).getJSONObject("data").getJSONArray("children")
