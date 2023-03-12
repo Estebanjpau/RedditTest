@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_SideRightUO"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_mode"
+    android:visibility="visible"
+    tools:context=".SideRightFragmentUserOptions">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:foregroundGravity="center">
+
+        <View
+            android:id="@+id/view_redditicon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/reddit_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:textAlignment="center"
+            android:textColor="@color/grey_light"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_redditicon"
+            app:layout_constraintBottom_toTopOf="@id/ll_ageOnRedditViewGruop"
+            android:text="u/Username" />
+
+        <LinearLayout
+            android:id="@+id/ll_KarmaViewGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/ll_ageOnRedditViewGruop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_username"
+            app:layout_constraintBottom_toTopOf="@id/view3">
+
+            <View
+                android:id="@+id/view_karmaIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/karma_flower" />
+
+            <LinearLayout
+                android:id="@+id/ll_Karma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/view_karmaIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <TextView
+                    android:id="@+id/tv_karmaCounter"
+                    android:layout_width="60dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/grey_light"
+                    android:textSize="18sp"
+                    android:text="100" />
+
+                <TextView
+                    android:id="@+id/tv_karmaText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="Karma"
+                    android:textColor="@color/grey_light"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="1dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/grey_dark"
+            app:layout_constraintTop_toBottomOf="@+id/tv_username"
+            app:layout_constraintEnd_toStartOf="@+id/ll_ageOnRedditViewGruop"
+            app:layout_constraintStart_toEndOf="@+id/ll_KarmaViewGroup"
+            app:layout_constraintBottom_toTopOf="@+id/view3" />
+
+        <LinearLayout
+            android:id="@+id/ll_ageOnRedditViewGruop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ll_KarmaViewGroup"
+            app:layout_constraintTop_toBottomOf="@+id/tv_username"
+            app:layout_constraintBottom_toTopOf="@id/view3">
+
+            <View
+                android:id="@+id/ll_cakeBirthday"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/cake_svgrepo_com" />
+
+            <LinearLayout
+                android:id="@+id/ll_ageOnReddit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/view_karmaIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <TextView
+                    android:id="@+id/tv_TimeInReddit"
+                    android:layout_width="60dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/grey_light"
+                    android:textSize="18sp"
+                    android:text="100" />
+
+                <TextView
+                    android:id="@+id/tv_TimeInRedditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="Edad de Reddit"
+                    android:textColor="@color/grey_light"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/grey_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view4"
+            app:layout_constraintBottom_toTopOf="@id/view3"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button"
+            android:layout_width="80dp"
+            android:layout_height="24dp"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textSize="9sp"
+            android:background="@color/transparent"
+            android:text="Cerrar Sesión"
+            android:textColor="@color/grey_semidark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:layout_margin="3dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

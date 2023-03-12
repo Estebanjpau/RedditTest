@@ -1,6 +1,5 @@
 package com.example.reddittest
 
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +12,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.reddittest.adapter.PostModelAdapter
 import com.example.reddittest.api.APIService
@@ -30,13 +30,15 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: PostModelAdapter
-    private val posts = mutableListOf<PostModel>()
     private lateinit var mainInstance : MainActivity
+    lateinit var fragment : Fragment
 
-    val fragment = SideRightFragmentUserOptions()
+    private val posts = mutableListOf<PostModel>()
+
     var access_token = ""
     var displayWidth = 1200
     var displayHeight = 1200
+    var fragmentInflate = ""
 
     val fetchAccessTokenTask = FetchAccessTokenTask()
 
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
 
         getDarkModeWindow()
 
-        initFragmentSRUO()
+        checkFragmentInit()
         showFragmentSRUO()
         LockFragmentSRUO()
     }
@@ -101,7 +103,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         }
     }
 
-    private fun initRecyclerView() {
+    fun initRecyclerView() {
         adapter = PostModelAdapter(posts, mainInstance)
         binding.rvFeed.layoutManager = LinearLayoutManager(this)
         binding.rvFeed.adapter = adapter
@@ -114,7 +116,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
             .build()
     }
 
-    private fun getTop() {
+    fun getTop() {
         CoroutineScope(Dispatchers.IO).launch {
             val call = getRetrofit().create(APIService::class.java)
                 .getRedditTop()
@@ -133,6 +135,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
     @SuppressLint("NotifyDataSetChanged")
     override fun onAccessTokenFetched(getAccessToken: String?) {
         access_token = getAccessToken.toString()
+        print(access_token)
         if (posts.isNotEmpty()) {
             adapter.notifyDataSetChanged()
         }
@@ -159,6 +162,12 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         supportFragmentManager.beginTransaction()
             .add(R.id.fl_SideRightFragmenUserOptions, fragment)
             .hide(fragment)
+            .commit()
+    }
+
+    fun removeFragmentSRUO(){
+        supportFragmentManager.beginTransaction()
+            .remove(fragment)
             .commit()
     }
 
@@ -197,35 +206,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
             val layoutParams = frameLayout.layoutParams
             layoutParams.width = 750
             frameLayout.layoutParams = layoutParams
-
-//                val anim = ValueAnimator.ofInt(displayWidth, 280)
-//                anim.duration = 500
-//                anim.addUpdateListener { valueAnimator ->
-//                    val value = valueAnimator.animatedValue as Int
-//                    val layoutParams = frameLayout.layoutParams
-//                    layoutParams.width = value
-//                    frameLayout.layoutParams = layoutParams
-//                }
-
         }
-    }
-
-    fun loginAccount() {
-        fetchAccessTokenTask.setAccessTokenListener(object : AccessTokenListener {
-            override fun onAccessTokenFetched(getAccessToken: String?) {
-                if (!getAccessToken.isNullOrEmpty()) {
-                    access_token = getAccessToken
-                    initRecyclerView()
-                    getTop()
-                    unlockFragmentSRUO()
-                    hideFragmentSRUO()
-                } else {
-                    Toast.makeText(this@MainActivity, "Contraseña equivocada", Toast.LENGTH_SHORT).show()
-                    fragment.binding.etSruopassword.setText("")
-                }
-            }
-        })
-        fetchAccessTokenTask.execute("4ICQyJNWimrCLb7plegtvg", "cEA_Ztz1MH99kzs8gk5iJJdG2YSQTA", fragment.loginUser, fragment.passwordUser)
     }
 
     private fun getDarkModeWindow(){
@@ -234,5 +215,19 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.statusBarColor = this.resources.getColor(R.color.dark_mode)
         window.navigationBarColor = this.resources.getColor(R.color.dark_mode)
+    }
+
+    fun checkFragmentInit() {
+        if (fragmentInflate == "InflateUserData") {
+            hideFragmentSRUO()
+            removeFragmentSRUO()
+            fragment = SideRightFragmentDataUser()
+            initFragmentSRUO()
+        } else if (access_token.isEmpty()){
+            fragment = SideRightFragmentUserOptions()
+            removeFragmentSRUO()
+            initFragmentSRUO()
+            fragmentInflate = "InflateUserData"
+        }
     }
 }

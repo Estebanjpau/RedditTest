@@ -3,16 +3,17 @@ package com.example.reddittest
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.reddittest.api.AccessTokenListener
 import com.example.reddittest.api.CheckAvailableUsername
 import com.example.reddittest.databinding.FragmentSideRightUserOptionsBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 val handler = Handler(Looper.getMainLooper())
 
@@ -41,38 +42,31 @@ class SideRightFragmentUserOptions : Fragment(), CheckAvailableUsername, AccessT
             loginUser = binding.etSruouser.text.toString()
             passwordUser = binding.etSruopassword.text.toString()
 
-            try {getAvailableUsername(loginUser) { isAvailable ->
-                    if (isAvailable) {
-                        handler.post {
-                            Toast.makeText(binding.btSruocontinue.context, "El usuario ingresado no es válido", Toast.LENGTH_SHORT).show()
-                        }
-                        loginUser = ""
-
-                    } else {
-                        println(loginUser)
-                        if (passwordUser == ""){
+            if (loginUser.isEmpty() || passwordUser.isEmpty()) {
+                handler.post {
+                    Toast.makeText(binding.btSruocontinue.context, "Debes ingresar el nombre de usuario y la contraseña", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                try {
+                    getAvailableUsername(loginUser) { isAvailable ->
+                        if (isAvailable) {
                             handler.post {
-                                Toast.makeText(binding.btSruocontinue.context, "Debes ingresar la contraseña para este usuario", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(binding.btSruocontinue.context, "El usuario ingresado no es válido", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                loginAccount()
+                                mainInstance.checkFragmentInit()
                             }
                         }
                     }
-                }
-            } catch (e: Exception){
-                handler.post {
-                    Toast.makeText(binding.btSruocontinue.context, "Algo no funcionó, verifica tu conexión a internet", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    handler.post {
+                        Toast.makeText(binding.btSruocontinue.context, "Algo no funcionó, verifica tu conexión a internet", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-
-            if(loginUser != "" && passwordUser != ""){
-                mainInstance.loginAccount()
-            }
-            binding.btSruocontinue.clearFocus()
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = SideRightFragmentUserOptions()
     }
 
     override fun onAccessTokenFetched(getAccessToken: String?) {
@@ -82,4 +76,23 @@ class SideRightFragmentUserOptions : Fragment(), CheckAvailableUsername, AccessT
             Toast.makeText(context, "No se pudo obtener el token de acceso", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun loginAccount() {
+        mainInstance.fetchAccessTokenTask.setAccessTokenListener(object : AccessTokenListener {
+            override fun onAccessTokenFetched(getAccessToken: String?) {
+                if (!getAccessToken.isNullOrEmpty()) {
+                    mainInstance.access_token = getAccessToken
+                    mainInstance.initRecyclerView()
+                    mainInstance.getTop()
+                    mainInstance.unlockFragmentSRUO()
+                    mainInstance.hideFragmentSRUO()
+                } else {
+                    Toast.makeText(mainInstance, "Contraseña equivocada", Toast.LENGTH_SHORT).show()
+                    binding.etSruopassword.setText("")
+                }
+            }
+        })
+        mainInstance.fetchAccessTokenTask.execute("4ICQyJNWimrCLb7plegtvg", "cEA_Ztz1MH99kzs8gk5iJJdG2YSQTA", loginUser, passwordUser)
+    }
 }
+

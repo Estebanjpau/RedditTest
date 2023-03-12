@@ -22,5 +22,7 @@
 
     <color name="red">#ff4500</color>
     <color name="blue">#3690EA</color>
+    <color name="blue_semidark">#0965C8</color>
+
 
 </resources>

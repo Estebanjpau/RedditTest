@@ -23,11 +23,9 @@ class GetVoteDir(val subreddit: String, val postId: String, val authtoken: Strin
 
         val client = OkHttpClient()
 
-
         val response = client.newCall(request).execute()
         response.use {
             if (response.isSuccessful) {
-
 
                 val jsonResponse = JSONArray(response.body?.string() ?: "")
                 val dataObject =
