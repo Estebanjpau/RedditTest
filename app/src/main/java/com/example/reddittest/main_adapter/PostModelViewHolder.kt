@@ -1,4 +1,4 @@
-package com.example.reddittest.adapter
+package com.example.reddittest.main_adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder

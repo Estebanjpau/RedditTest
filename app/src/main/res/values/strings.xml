@@ -12,5 +12,7 @@
     <string name="password">Contraseña</string>
     <string name="termsofuse">Al continuar, acetpas nuestro Acuerdo de usuario y la politica de privacidad</string>
     <string name="continuetext">Continuar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

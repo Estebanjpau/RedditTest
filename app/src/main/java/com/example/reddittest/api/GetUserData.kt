@@ -7,7 +7,7 @@ import java.io.IOException
 
 interface GetUserData {
 
-    suspend fun getLoggedUsername(tokenAccess: String): String {
+    suspend fun getLoggedUserSubreddit(tokenAccess: String): String {
         val client = OkHttpClient()
         val url = "https://oauth.reddit.com/api/v1/me"
         val bearerToken = "bearer " + tokenAccess
@@ -23,6 +23,28 @@ interface GetUserData {
                 val jsonResponse = JSONObject(response.body?.string() ?: "")
                 val username = jsonResponse.getJSONObject("subreddit")
                     .getString("display_name_prefixed")
+                return username
+            }else {
+                throw IOException("Error obteniendo el nombre de usuario")
+            }
+        }
+    }
+
+    suspend fun getLoggedUserData(tokenAccess: String, data: String): String {
+        val client = OkHttpClient()
+        val url = "https://oauth.reddit.com/api/v1/me"
+        val bearerToken = "bearer " + tokenAccess
+
+        val request = Request.Builder()
+            .url(url)
+            .header("Authorization", bearerToken)
+            .build()
+
+        val response = client.newCall(request).execute()
+        response.use {
+            if (response.isSuccessful) {
+                val jsonResponse = JSONObject(response.body?.string() ?: "")
+                val username = jsonResponse.getString(data)
                 return username
             }else {
                 throw IOException("Error obteniendo el nombre de usuario")

@@ -1,11 +1,12 @@
-package com.example.reddittest.adapter
+package com.example.reddittest.main_adapter
 
 import android.view.View
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.reddittest.MainActivity
 import com.example.reddittest.PostModel
 import com.example.reddittest.PostUtils
+import com.example.reddittest.R
 import com.example.reddittest.api.GetVoteDir
 import com.example.reddittest.api.postVote
 import com.example.reddittest.databinding.ItemPostBinding
@@ -68,6 +69,7 @@ class PostModelImageViewHolder(view: View, private val mainInstance: MainActivit
                             postVoteDir = "true"
                             binding.tbUpVote.isChecked = true
                             binding.tbDownVote.isChecked = false
+                            binding.tvCounterVotes.setTextColor(ContextCompat.getColor(binding.tbUpVote.context, R.color.red))
                         }
                     }
                 }
@@ -81,6 +83,7 @@ class PostModelImageViewHolder(view: View, private val mainInstance: MainActivit
                             postVoteDir = "null"
                             binding.tbUpVote.isChecked = false
                             binding.tbDownVote.isChecked = false
+                            binding.tvCounterVotes.setTextColor(ContextCompat.getColor(binding.tbUpVote.context, R.color.grey_semidark))
                         }
                     }
                 }
@@ -97,6 +100,7 @@ class PostModelImageViewHolder(view: View, private val mainInstance: MainActivit
                             postVoteDir = "false"
                             binding.tbDownVote.isChecked = true
                             binding.tbUpVote.isChecked = false
+                            binding.tvCounterVotes.setTextColor(ContextCompat.getColor(binding.tbUpVote.context, R.color.blue))
                         }
                     }
                 }
@@ -110,6 +114,7 @@ class PostModelImageViewHolder(view: View, private val mainInstance: MainActivit
                             postVoteDir = "null"
                             binding.tbUpVote.isChecked = false
                             binding.tbDownVote.isChecked = false
+                            binding.tvCounterVotes.setTextColor(ContextCompat.getColor(binding.tbUpVote.context, R.color.grey_semidark))
                         }
                     }
                 }

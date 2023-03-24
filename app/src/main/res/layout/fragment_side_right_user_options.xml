@@ -10,6 +10,7 @@
     tools:context=".SideRightFragmentUserOptions">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_SRfragmentUserOptions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp">
@@ -29,21 +30,21 @@
             android:id="@+id/tv_sruotestmessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="10dp"
             android:text="@string/testmessage"
             android:textAlignment="center"
             android:textColor="@color/grey_semidark"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_sruoredditicon" />
 
         <EditText
             android:id="@+id/et_sruouser"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
-            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/rectangle_round_grey_dark"
             android:ems="10"
             android:gravity="start|center"
@@ -52,7 +53,7 @@
             android:textAlignment="center"
             android:textColor="@color/grey_light"
             android:textColorHint="@color/grey_semidark"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@id/et_sruopassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,9 +61,9 @@
 
         <EditText
             android:id="@+id/et_sruopassword"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/rectangle_round_grey_dark"
             android:ems="10"
             android:gravity="start|center"
@@ -71,7 +72,7 @@
             android:textAlignment="center"
             android:textColor="@color/grey_light"
             android:textColorHint="@color/grey_semidark"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_sruouser" />
@@ -80,30 +81,30 @@
             android:id="@+id/tv_sroutermsofuse"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_margin="10dp"
-            android:textSize="9sp"
+            android:layout_margin="12dp"
             android:background="@color/transparent"
             android:text="@string/termsofuse"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/grey_semidark"
-            app:layout_constraintBottom_toTopOf="@+id/bt_sruocontinue"
+            android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_sruopassword" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_sruocontinue"
-            android:layout_width="230dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
+            style="@style/CheckFieldButtonRed"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:background="@drawable/rectangle_round_red"
+            android:enabled="false"
             android:text="@string/continuetext"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/grey_light"
-            android:textSize="14sp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sroutermsofuse" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

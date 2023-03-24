@@ -1,4 +1,4 @@
-package com.example.reddittest.adapter
+package com.example.reddittest.main_adapter
 
 import android.net.Uri
 import android.view.View
@@ -8,12 +8,15 @@ import android.widget.VideoView
 import com.example.reddittest.MainActivity
 import com.example.reddittest.PostModel
 import com.example.reddittest.PostUtils
+import androidx.core.content.ContextCompat
+import com.example.reddittest.R
 import com.example.reddittest.api.GetVoteDir
 import com.example.reddittest.api.postVote
 import com.example.reddittest.databinding.ItemPostBinding
 import kotlinx.coroutines.*
 
-class PostModelVideoViewHolder(view: View, private val mainInstance: MainActivity) : PostModelViewHolder(view, mainInstance) {
+class PostModelVideoViewHolder(view: View, private val mainInstance: MainActivity) :
+    PostModelViewHolder(view, mainInstance) {
 
     private val binding = ItemPostBinding.bind(view)
     override var postVoteDir = ""
@@ -33,8 +36,13 @@ class PostModelVideoViewHolder(view: View, private val mainInstance: MainActivit
         }
 
         fun refreshVote() {
-            if(mainInstance.access_token.isNotEmpty()) {
-                val getVote = GetVoteDir(postExample.subreddit, postExample.postId, mainInstance.access_token, postExample.userId)
+            if (mainInstance.access_token.isNotEmpty()) {
+                val getVote = GetVoteDir(
+                    postExample.subreddit,
+                    postExample.postId,
+                    mainInstance.access_token,
+                    postExample.userId
+                )
                 val deferredResult = GlobalScope.async {
                     getVote.GetPostDirInBackground().await()
                 }
@@ -46,16 +54,16 @@ class PostModelVideoViewHolder(view: View, private val mainInstance: MainActivit
 
         refreshVote()
 
-        if (postVoteDir == "null"){
+        if (postVoteDir == "null") {
             binding.tbUpVote.isChecked = false
             binding.tbDownVote.isChecked = false
         }
 
-        if (postVoteDir == "true"){
+        if (postVoteDir == "true") {
             binding.tbUpVote.isChecked = true
         }
 
-        if (postVoteDir == "false"){
+        if (postVoteDir == "false") {
             binding.tbDownVote.isChecked = true
         }
 
@@ -63,25 +71,29 @@ class PostModelVideoViewHolder(view: View, private val mainInstance: MainActivit
             if (postVoteDir == "null" || postVoteDir == "false") {
                 val coroutineScope = CoroutineScope(Dispatchers.IO)
                 coroutineScope.launch {
-                    val success = postVote(postExample.fullnamePostId, "1", mainInstance.access_token)
+                    val success =
+                        postVote(postExample.fullnamePostId, "1", mainInstance.access_token)
                     withContext(Dispatchers.IO) {
                         if (success) {
                             postVoteDir = "true"
                             binding.tbUpVote.isChecked = true
                             binding.tbDownVote.isChecked = false
+                            binding.tvCounterVotes.setTextColor(ContextCompat.getColor(binding.tbUpVote.context, R.color.red))
                         }
                     }
                 }
 
-            } else if (postVoteDir == "true"){
+            } else if (postVoteDir == "true") {
                 val coroutineScope = CoroutineScope(Dispatchers.IO)
                 coroutineScope.launch {
-                    val success = postVote(postExample.fullnamePostId, "0", mainInstance.access_token)
+                    val success =
+                        postVote(postExample.fullnamePostId, "0", mainInstance.access_token)
                     withContext(Dispatchers.IO) {
                         if (success) {
                             postVoteDir = "null"
                             binding.tbUpVote.isChecked = false
                             binding.tbDownVote.isChecked = false
+                            binding.tvCounterVotes.setTextColor(ContextCompat.getColor(binding.tbUpVote.context, R.color.grey_semidark))
                         }
                     }
                 }
@@ -92,25 +104,29 @@ class PostModelVideoViewHolder(view: View, private val mainInstance: MainActivit
             if (postVoteDir == "null" || postVoteDir == "true") {
                 val coroutineScope = CoroutineScope(Dispatchers.IO)
                 coroutineScope.launch {
-                    val success = postVote(postExample.fullnamePostId, "-1", mainInstance.access_token)
+                    val success =
+                        postVote(postExample.fullnamePostId, "-1", mainInstance.access_token)
                     withContext(Dispatchers.IO) {
                         if (success) {
                             postVoteDir = "false"
                             binding.tbDownVote.isChecked = true
                             binding.tbUpVote.isChecked = false
+                            binding.tvCounterVotes.setTextColor(ContextCompat.getColor(binding.tbUpVote.context, R.color.blue))
                         }
                     }
                 }
 
-            } else if(postVoteDir == "false"){
+            } else if (postVoteDir == "false") {
                 val coroutineScope = CoroutineScope(Dispatchers.IO)
                 coroutineScope.launch {
-                    val success = postVote(postExample.fullnamePostId, "0", mainInstance.access_token)
+                    val success =
+                        postVote(postExample.fullnamePostId, "0", mainInstance.access_token)
                     withContext(Dispatchers.IO) {
                         if (success) {
                             postVoteDir = "null"
                             binding.tbUpVote.isChecked = false
                             binding.tbDownVote.isChecked = false
+                            binding.tvCounterVotes.setTextColor(ContextCompat.getColor(binding.tbUpVote.context, R.color.grey_semidark))
                         }
                     }
                 }
@@ -146,7 +162,10 @@ class PostModelVideoViewHolder(view: View, private val mainInstance: MainActivit
         } else {
             binding.tvTitle.setOnClickListener {
                 Toast.makeText(
-                    videoView.context,(postExample.secureMedia?.RedditVideo?.urlVideo.toString()), Toast.LENGTH_LONG).show()
+                    videoView.context,
+                    (postExample.secureMedia?.RedditVideo?.urlVideo.toString()),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 

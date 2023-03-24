@@ -1,9 +1,8 @@
-package com.example.reddittest.adapter
+package com.example.reddittest.main_adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.reddittest.MainActivity
 import com.example.reddittest.PostModel
 import com.example.reddittest.R

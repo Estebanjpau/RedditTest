@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.reddittest.adapter.PostModelAdapter
-import com.example.reddittest.api.APIService
+import com.example.reddittest.main_adapter.PostModelAdapter
+import com.example.reddittest.api.APIServiceTop
 import com.example.reddittest.api.AccessTokenListener
 import com.example.reddittest.api.FetchAccessTokenTask
 import com.example.reddittest.databinding.ActivityMainBinding
@@ -24,7 +24,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 class MainActivity : AppCompatActivity(), AccessTokenListener {
 
@@ -57,6 +56,15 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         checkFragmentInit()
         showFragmentSRUO()
         LockFragmentSRUO()
+
+        binding.ibPost.setOnClickListener{
+            val fragmentMK = MakePostFragment()
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_background_to_front,0,0,R.anim.enter_from_background_to_front)
+                .add(R.id.fl_fragmentMKcontainer, fragmentMK)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -118,7 +126,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
 
     fun getTop() {
         CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(APIService::class.java)
+            val call = getRetrofit().create(APIServiceTop::class.java)
                 .getRedditTop()
             val response = call.body()
             if (call.isSuccessful) {
