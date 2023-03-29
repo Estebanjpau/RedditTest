@@ -1,11 +1,9 @@
 package com.example.reddittest.api
 
 import android.util.Log
-import com.example.reddittest.SubredditChildrenList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.*
-import org.json.JSONObject
 import java.io.IOException
 
 interface ManagePost {
@@ -60,26 +58,18 @@ interface ManagePost {
         return response.body?.string()
     }
 
-    fun parseSubreddits(jsonString: String): List<SubredditChildrenList> {
-        val jsonObject = JSONObject(jsonString)
-        val jsonArray = jsonObject.getJSONArray("subreddits")
-
-        val subreddits = mutableListOf<SubredditChildrenList>()
-        for (i in 0 until jsonArray.length()) {
-            val subJson = jsonArray.getJSONObject(i)
-            val subreddit = SubredditChildrenList(
-                "",
-                "",
-                "",
-                subJson.getString("name"),
-                subJson.getString("url")
-            )
-            subreddits.add(subreddit)
-        }
-
-        return subreddits
-    }
-
-
     class RedditException(message: String) : Exception(message)
+
+    fun getSubredditRules (subreddit : String,) : String? {
+        val client = OkHttpClient()
+        val url = "https://www.reddit.com/${subreddit}/about/rules.json"
+
+        val request = Request.Builder()
+            .url(url)
+            .build()
+
+        val response = client.newCall(request).execute()
+
+        return response.body?.string()
+    }
 }

@@ -5,23 +5,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.reddittest.R
-import com.example.reddittest.SubredditChildrenList
+import com.example.reddittest.data_model.SubredditChildrenList
 
-class SubredditListAdapter(private var subredditList: List<SubredditChildrenList>) :
+class SubredditListAdapter(private var subredditList: MutableSet<SubredditChildrenList>, val listener: OnSubredditClickListener):
     ListAdapter<SubredditChildrenList, SubredditListViewHolder>(SubredditDiffCallback()) {
+
+    var filteredList = ArrayList<SubredditChildrenList>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubredditListViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.subredditpost_item, parent, false)
-        return SubredditListViewHolder(itemView)
+        return SubredditListViewHolder(itemView, listener )
     }
 
     override fun onBindViewHolder(holder: SubredditListViewHolder, position: Int) {
-        val subreddit = subredditList[position]
+        val subreddit = filteredList[position]
         holder.bind(subreddit)
     }
 
     override fun getItemCount(): Int {
-        return subredditList.size
+        return filteredList.size
     }
 
     private class SubredditDiffCallback : DiffUtil.ItemCallback<SubredditChildrenList>() {
@@ -34,21 +36,22 @@ class SubredditListAdapter(private var subredditList: List<SubredditChildrenList
             return oldItem == newItem
         }
     }
+
+    fun filterList(query: String) {
+        filteredList.clear()
+        if (query.isNotEmpty()) {
+            for (subreddit in subredditList) {
+                if (subreddit.subredditPrefixed.contains(query, true)) {
+                    filteredList.add(subreddit)
+                } else if (query.isEmpty()){
+                    filteredList.clear()
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
 }
 
-private class SubredditDiffCallback : DiffUtil.ItemCallback<String>() {
-
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
-    }
+interface OnSubredditClickListener {
+    fun onSubredditClick(subreddit: SubredditChildrenList)
 }
-
-
-
-
-
-

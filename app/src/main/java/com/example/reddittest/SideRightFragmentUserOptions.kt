@@ -75,6 +75,11 @@ class SideRightFragmentUserOptions : Fragment(), CheckAvailableUsername, AccessT
 
         checkFields()
 
+        var esteban = "estebanjpau"
+        var contra = "wd1qi5fl"
+        loginUser = binding.etSruouser.setText(esteban).toString()
+        passwordUser = binding.etSruopassword.setText(contra).toString()
+
         binding.btSruocontinue.setOnClickListener {
             loginUser = binding.etSruouser.text.toString()
             passwordUser = binding.etSruopassword.text.toString()

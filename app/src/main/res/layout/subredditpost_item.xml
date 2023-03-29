@@ -2,15 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_contentSubredditPostItem"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="62dp"
     android:background="@color/dark_mode"
     android:layout_marginBottom="8dp">
 
     <ImageView
         android:id="@+id/iv_subredditImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@drawable/reddit_svgrepo_com"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,8 +21,10 @@
     <TextView
         android:id="@+id/tv_subredditName"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="25dp"
         android:gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/grey_light"
         android:textSize="18sp"
@@ -31,11 +35,12 @@
     <TextView
         android:id="@+id/tv_subredditMembers"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="15dp"
         android:gravity="center"
+        android:layout_marginLeft="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/grey_semidark"
-        android:textSize="12sp"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/iv_subredditImage"
         app:layout_constraintTop_toBottomOf="@+id/tv_subredditName"
         tools:text="200m miembros" />
@@ -43,21 +48,20 @@
     <TextView
         android:id="@+id/tvSubredditDot"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="15dp"
         android:gravity="bottom"
         android:paddingStart="3dp"
         android:paddingEnd="3dp"
         android:text="•"
         android:textColor="@color/grey_semidark"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_subredditMembers"
         app:layout_constraintTop_toTopOf="@+id/tv_subredditMembers" />
 
     <TextView
         android:id="@+id/tv_checksuscribe"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="15dp"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/grey_semidark"

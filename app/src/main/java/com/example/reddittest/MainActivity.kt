@@ -18,19 +18,25 @@ import com.example.reddittest.main_adapter.PostModelAdapter
 import com.example.reddittest.api.APIServiceTop
 import com.example.reddittest.api.AccessTokenListener
 import com.example.reddittest.api.FetchAccessTokenTask
+import com.example.reddittest.data_model.PostModel
+import com.example.reddittest.data_model.SubredditChildrenList
 import com.example.reddittest.databinding.ActivityMainBinding
+import com.example.reddittest.make_post_adapter.OnSubredditClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity(), AccessTokenListener {
+class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickListener{
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: PostModelAdapter
     private lateinit var mainInstance : MainActivity
     lateinit var fragment : Fragment
+
+    var makePostInstance = MakePostFragment()
+    var searchSubredditInstance = SearchSubredditFragment()
 
     private val posts = mutableListOf<PostModel>()
 
@@ -58,10 +64,9 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
         LockFragmentSRUO()
 
         binding.ibPost.setOnClickListener{
-            val fragmentMK = MakePostFragment()
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.enter_from_background_to_front,0,0,R.anim.enter_from_background_to_front)
-                .add(R.id.fl_fragmentMKcontainer, fragmentMK)
+                .add(R.id.fl_fragmentMKcontainer, makePostInstance)
                 .addToBackStack(null)
                 .commit()
         }
@@ -237,5 +242,21 @@ class MainActivity : AppCompatActivity(), AccessTokenListener {
             initFragmentSRUO()
             fragmentInflate = "InflateUserData"
         }
+    }
+
+    override fun onSubredditClick(subreddit: SubredditChildrenList) {
+        closeSearchSubredditFragment(subreddit)
+    }
+
+    private fun closeSearchSubredditFragment(subreddit: SubredditChildrenList) {
+
+        makePostInstance.showSubredditSelect()
+        makePostInstance.subreddit = subreddit.subredditPrefixed
+        makePostInstance.subredditImg = subreddit.subredditImage
+        makePostInstance.loadSubredditSelected()
+
+        supportFragmentManager.beginTransaction()
+            .remove(searchSubredditInstance)
+            .commit()
     }
 }

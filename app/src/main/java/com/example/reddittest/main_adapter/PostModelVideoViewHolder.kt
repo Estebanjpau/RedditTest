@@ -6,7 +6,7 @@ import android.widget.MediaController
 import android.widget.Toast
 import android.widget.VideoView
 import com.example.reddittest.MainActivity
-import com.example.reddittest.PostModel
+import com.example.reddittest.data_model.PostModel
 import com.example.reddittest.PostUtils
 import androidx.core.content.ContextCompat
 import com.example.reddittest.R

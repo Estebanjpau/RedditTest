@@ -4,7 +4,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.reddittest.MainActivity
-import com.example.reddittest.PostModel
+import com.example.reddittest.data_model.PostModel
 import com.example.reddittest.PostUtils
 import com.example.reddittest.R
 import com.example.reddittest.api.GetVoteDir

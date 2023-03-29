@@ -28,7 +28,6 @@ class SideRightFragmentDataUser : Fragment(), GetUserData, AccessTokenListener {
         mainInstance.onAccessTokenFetched(mainInstance.access_token)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -1,4 +1,4 @@
-package com.example.reddittest
+package com.example.reddittest.data_model
 
 import com.google.gson.annotations.SerializedName
 
@@ -29,6 +29,15 @@ data class SubredditChildrenList(
     @SerializedName("subscribers")
     val suscribers:String,
     @SerializedName("id")
-    val id:String
+    val id:String,
+    @SerializedName("description")
+    val description:String
 )
+
+data class Rule(
+    @SerializedName("short_name")
+    val shortName: String,
+    @SerializedName("description")
+    val description: String?)
+
 

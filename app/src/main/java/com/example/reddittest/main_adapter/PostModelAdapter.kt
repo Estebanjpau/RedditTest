@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.reddittest.MainActivity
-import com.example.reddittest.PostModel
+import com.example.reddittest.data_model.PostModel
 import com.example.reddittest.R
 
-class PostModelAdapter(private val providerList: List<PostModel>,private val mainInstance:MainActivity) :
+class PostModelAdapter(private val providerList: List<PostModel>, private val mainInstance:MainActivity) :
     RecyclerView.Adapter<PostModelViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostModelViewHolder {
