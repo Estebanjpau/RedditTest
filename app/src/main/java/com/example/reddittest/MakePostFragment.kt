@@ -1,8 +1,14 @@
 package com.example.reddittest
 
+import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.ContentResolver
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,8 +18,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,35 +36,62 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.io.File
+import java.io.FileOutputStream
 
-class MakePostFragment : Fragment(), ManagePost {
+class MakePostFragment : Fragment(), ManagePost{
+
+    companion object { private const val CAMERA_PERMISSION_REQUEST_CODE = 100 }
 
     private lateinit var binding: FragmentMakePostBinding
     private lateinit var mainInstance: MainActivity
-
-    lateinit var bottomSheetDialog : BottomSheetDialog
-
-    lateinit var ruleListAdapter : RuleListAdapter
-    lateinit var titlePost: String
+    lateinit var bottomSheetDialog: BottomSheetDialog
     lateinit var bodyPost: String
+    lateinit var ruleListAdapter: RuleListAdapter
+    private lateinit var selectedImageBitmap: Bitmap
+    lateinit var subreddit: String
+    lateinit var subredditImg: String
+    lateinit var titlePost: String
     lateinit var urlPost: String
-    lateinit var subreddit : String
-    var subredditRules = mutableSetOf<Rule>()
-    lateinit var subredditImg : String
-
-    private var selectedImageUri: Uri? = null
 
     var kind = "self"
+    lateinit var imageFile : File
+
+    var subredditRules = mutableSetOf<Rule>()
+
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if(result.resultCode == Activity.RESULT_OK){
+            val intent = result.data
+            val imageBitMap = intent?.extras?.get("data") as Bitmap
+            if (binding.llContentMedia.visibility == View.GONE){ binding.llContentMedia.visibility = View.VISIBLE }
+            binding.ivPreviewMedia.setImageBitmap(imageBitMap)
+            selectedImageBitmap = imageBitMap
+            kind = "image"
+        }
+    }
+
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            selectedImageBitmap = getBitmapFromUri(uri)
+            if (binding.llContentMedia.visibility == View.GONE){ binding.llContentMedia.visibility = View.VISIBLE }
+            binding.ivPreviewMedia.setImageBitmap(selectedImageBitmap)
+            kind = "image"
+        }
+    }
+
+    private fun getBitmapFromUri(uri: Uri): Bitmap {
+        val inputStream = requireContext().contentResolver.openInputStream(uri)
+        return BitmapFactory.decodeStream(inputStream)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentMakePostBinding.inflate(inflater, container, false)
 
         mainInstance = activity as MainActivity
-
         val actionBar = (activity as AppCompatActivity).supportActionBar
         actionBar?.hide()
 
@@ -83,7 +118,6 @@ class MakePostFragment : Fragment(), ManagePost {
             requireActivity().supportFragmentManager.beginTransaction()
                 .remove(this)
                 .commit()
-
             val actionBar = (activity as AppCompatActivity).supportActionBar
             actionBar?.show()
         }
@@ -124,7 +158,6 @@ class MakePostFragment : Fragment(), ManagePost {
             }
         }
 
-
         val rootLayout = binding.root
         rootLayout.viewTreeObserver.addOnGlobalLayoutListener {
             val heightDiff = rootLayout.rootView.height - constraintUserOptions.height
@@ -147,15 +180,42 @@ class MakePostFragment : Fragment(), ManagePost {
             binding.llUrlPost.visibility = View.GONE
         }
 
-        val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                selectedImageUri = it
-                binding.ivLoadimagePost.setImageURI(it)
-            }
+        binding.ivDeleteMediaTaken.setOnClickListener {
+            binding.ivPreviewMedia.setImageBitmap(null)
+            binding.llContentMedia.visibility = View.GONE
+            kind = "self"
         }
 
         binding.ivLoadimagePost.setOnClickListener {
-            pickImageLauncher.launch("image/*")
+            val options = arrayOf<CharSequence>("Tomar Foto", "Elegir de la galería", "Cancelar")
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Elige una opción")
+            builder.setItems(options) { dialog, item ->
+                when {
+                    options[item] == "Tomar Foto" -> {
+                        if (ContextCompat.checkSelfPermission(
+                                requireContext(),
+                                Manifest.permission.CAMERA
+                            ) != PackageManager.PERMISSION_GRANTED
+                        ) {
+                            ActivityCompat.requestPermissions(
+                                requireActivity(),
+                                arrayOf(Manifest.permission.CAMERA),
+                                CAMERA_PERMISSION_REQUEST_CODE
+                            )
+                        } else {
+                             startForResult.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+                        }
+                    }
+                    options[item] == "Elegir de la galería" -> {
+                        pickImageLauncher.launch("image/*")
+                    }
+                    options[item] == "Cancelar" -> {
+                        dialog.dismiss()
+                    }
+                }
+            }
+            builder.show()
         }
 
         binding.btContinueToPost.setOnClickListener {
@@ -167,9 +227,19 @@ class MakePostFragment : Fragment(), ManagePost {
                 launchSearchSubredditFragment()
 
             } else if (titlePost != "") {
+                if(kind == "image"){
+                    val cacheDir = context?.cacheDir
+                    imageFile = File.createTempFile("image", ".jpg", cacheDir)
+
+                    val outputStream = FileOutputStream(imageFile)
+                    selectedImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                    outputStream.flush()
+                    outputStream.close()
+                }
+
                 CoroutineScope(Dispatchers.Main).launch {
                     try {
-                        makePost(mainInstance.access_token, titlePost, bodyPost, urlPost,kind)
+                        makePost(mainInstance.access_token, titlePost, bodyPost, urlPost,imageFile,null,kind,subreddit)
                         Toast.makeText(binding.clFragmentMP.context,"Publicacion exitosa",Toast.LENGTH_SHORT).show()
                     } catch (e:Exception){
                      Toast.makeText(binding.clFragmentMP.context,"Error en la peticion",Toast.LENGTH_SHORT).show()
@@ -181,11 +251,9 @@ class MakePostFragment : Fragment(), ManagePost {
 
     override fun onDestroy() {
         super.onDestroy()
-
         if (bottomSheetDialog.isShowing) {
             bottomSheetDialog.dismiss()
         }
-
         val actionBar = (activity as AppCompatActivity).supportActionBar
         actionBar?.show()
     }

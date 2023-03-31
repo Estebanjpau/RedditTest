@@ -31,11 +31,13 @@ interface CameraHelper {
         return null
     }
 
-    private fun createImageFile(activity: Activity): File? {
+    fun createImageFile(activity: Activity): File? {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val fileName = "JPEG_${timeStamp}_"
         val storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 
         return File.createTempFile(fileName, ".jpg", storageDir)
     }
+
+    fun getImageUri(): Uri?
 }

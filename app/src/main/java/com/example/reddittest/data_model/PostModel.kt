@@ -53,9 +53,3 @@ data class Video(
     @SerializedName("fallback_url")
     val urlVideo: String
 )
-
-
-
-
-
-

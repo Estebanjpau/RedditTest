@@ -14,13 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.reddittest.main_adapter.PostModelAdapter
 import com.example.reddittest.api.APIServiceTop
 import com.example.reddittest.api.AccessTokenListener
 import com.example.reddittest.api.FetchAccessTokenTask
 import com.example.reddittest.data_model.PostModel
 import com.example.reddittest.data_model.SubredditChildrenList
 import com.example.reddittest.databinding.ActivityMainBinding
+import com.example.reddittest.main_adapter.PostModelAdapter
 import com.example.reddittest.make_post_adapter.OnSubredditClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,12 +28,12 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickListener{
+class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: PostModelAdapter
-    private lateinit var mainInstance : MainActivity
-    lateinit var fragment : Fragment
+    private lateinit var mainInstance: MainActivity
+    lateinit var fragment: Fragment
 
     var makePostInstance = MakePostFragment()
     var searchSubredditInstance = SearchSubredditFragment()
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
     val fetchAccessTokenTask = FetchAccessTokenTask()
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -63,9 +63,14 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
         showFragmentSRUO()
         LockFragmentSRUO()
 
-        binding.ibPost.setOnClickListener{
+        binding.ibPost.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_background_to_front,0,0,R.anim.enter_from_background_to_front)
+                .setCustomAnimations(
+                    R.anim.enter_from_background_to_front,
+                    0,
+                    0,
+                    R.anim.enter_from_background_to_front
+                )
                 .add(R.id.fl_fragmentMKcontainer, makePostInstance)
                 .addToBackStack(null)
                 .commit()
@@ -84,7 +89,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
                     supportFragmentManager.findFragmentById(R.id.fl_SideRightFragmenUserOptions)
                         ?: return true
                 if (fragment.isVisible) {
-                    if(access_token.isNotEmpty()) {
+                    if (access_token.isNotEmpty()) {
                         Handler(Looper.getMainLooper()).postDelayed({
                             hideFragmentSRUO()
                         }, 70)
@@ -94,7 +99,8 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
                         constraintLayout.startAnimation(animation)
                         constraintLayout.visibility = View.INVISIBLE
                     } else {
-                        Toast.makeText(this,"Inicie sesión para continuar",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Inicie sesión para continuar", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 } else {
                     val constraintLayout = findViewById<ConstraintLayout>(R.id.cl_ContentSRUO)
@@ -159,7 +165,12 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
         if (fragment != null) {
             if (fragment.isVisible) {
                 supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
+                    .setCustomAnimations(
+                        R.anim.enter_from_right,
+                        R.anim.exit_to_right,
+                        R.anim.enter_from_right,
+                        R.anim.exit_to_right
+                    )
                     .hide(fragment)
                     .commit()
                 val constraintLayout = findViewById<ConstraintLayout>(R.id.cl_ContentSRUO)
@@ -178,7 +189,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
             .commit()
     }
 
-    fun removeFragmentSRUO(){
+    fun removeFragmentSRUO() {
         supportFragmentManager.beginTransaction()
             .remove(fragment)
             .commit()
@@ -187,7 +198,12 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
     fun showFragmentSRUO() {
         if (!fragment.isVisible) {
             supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
+                .setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_right,
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_right
+                )
                 .show(fragment)
                 .commit()
         }
@@ -196,14 +212,19 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
     fun hideFragmentSRUO() {
         if (fragment.isVisible) {
             supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
+                .setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_right,
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_right
+                )
                 .hide(fragment)
                 .commit()
         }
     }
 
-    fun LockFragmentSRUO(){
-        if(access_token.isEmpty()){
+    fun LockFragmentSRUO() {
+        if (access_token.isEmpty()) {
             val frameLayout = findViewById<FrameLayout>(R.id.fl_SideRightFragmenUserOptions)
             val layoutParams2 = frameLayout.layoutParams
             layoutParams2.width = ViewGroup.LayoutParams.MATCH_PARENT
@@ -222,7 +243,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
         }
     }
 
-    private fun getDarkModeWindow(){
+    private fun getDarkModeWindow() {
         val window = this.window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -236,7 +257,7 @@ class MainActivity : AppCompatActivity(), AccessTokenListener, OnSubredditClickL
             removeFragmentSRUO()
             fragment = SideRightFragmentDataUser()
             initFragmentSRUO()
-        } else if (access_token.isEmpty()){
+        } else if (access_token.isEmpty()) {
             fragment = SideRightFragmentUserOptions()
             removeFragmentSRUO()
             initFragmentSRUO()

@@ -154,6 +154,36 @@
 
             </LinearLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_contentMedia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/iv_previewMedia"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/rectangle_round_border_transparent"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/iv_deleteMediaTaken"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_previewMedia"
+                    android:background="@drawable/close_square_svgrepo_com"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <LinearLayout
                 android:id="@+id/ll_urlPost"
                 android:layout_width="match_parent"
@@ -186,6 +216,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/close_square_svgrepo_com" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -278,8 +309,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bgrules_top_border_round_grey_dark"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_TopTextMenuRules"
