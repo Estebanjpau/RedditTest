@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/black"
     android:background="@color/dark_mode"
+    android:backgroundTint="@color/black"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -14,22 +14,21 @@
         android:layout_height="65dp"
         android:background="@color/dark_mode"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
     <View
         android:id="@+id/SuperiorLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/grey_dark"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_feed"
-        app:layout_constraintTop_toTopOf="@id/SuperiorLine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/SuperiorLine">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -43,11 +42,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:baselineAligned="false"
         android:id="@+id/ly_navigationbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/dark_mode"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingTop="5dp"
         android:weightSum="5"
@@ -61,17 +60,17 @@
 
             <ImageButton
                 android:id="@+id/ib_main"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/ib_main" />
+                android:background="@drawable/home_solid" />
 
             <TextView
                 android:id="@+id/tv_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Principal"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
@@ -86,17 +85,17 @@
 
             <ImageButton
                 android:id="@+id/ib_search"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/ib_compass" />
+                android:background="@drawable/compass_light" />
 
             <TextView
                 android:id="@+id/tv_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@string/search_button"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
@@ -111,17 +110,17 @@
 
             <ImageButton
                 android:id="@+id/ib_post"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/ib_plus" />
+                android:background="@drawable/add_solid" />
 
             <TextView
                 android:id="@+id/tv_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@string/post_button"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
@@ -131,22 +130,23 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/ib_chat"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/ib_chat_bubble" />
+                android:background="@drawable/chat_bubble_oval_left_ellipsis" />
 
             <TextView
                 android:id="@+id/tv_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="@string/chat_button"
                 android:textAlignment="center"
                 android:textColor="@color/grey"
@@ -156,17 +156,17 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/ib_message"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:background="@drawable/ib_bell"
+                android:background="@drawable/bell"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
@@ -185,23 +185,31 @@
         android:id="@+id/cl_ContentSRUO"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:layout_width="0dp"
-        android:visibility="invisible"
-        android:onClick="hideSRUOfragmentOnClick"
         android:background="@color/semitransparent_black"
+        android:onClick="hideSRUOfragmentOnClick"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fl_SideRightFragmenUserOptions"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_width="0dp" />
 
     <FrameLayout
         android:id="@+id/fl_SideRightFragmenUserOptions"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:layout_width="285dp"
         app:layout_constraintBottom_toBottomOf="@+id/ly_navigationbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_width="275dp"></FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_fragmentMKcontainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ly_navigationbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

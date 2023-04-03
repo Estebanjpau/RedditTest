@@ -15,12 +15,16 @@
 
     <color name="ghost_white">#f8f8ff</color>
     <color name="grey_light">#E4E6EB</color>
+    <color name="grey_semilight">#c4c6cB</color>
     <color name="grey">#B0B3B8</color>
     <color name="grey_semidark">#898D90</color>
-    <color name="grey_dark">#28292A</color>
+    <color name="grey_dark">#262728</color>
 
 
     <color name="red">#ff4500</color>
     <color name="blue">#3690EA</color>
+    <color name="blue_semidark">#0965C8</color>
+    <color name="green">#06c755</color>
+
 
 </resources>

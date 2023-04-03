@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_SideRightUO"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_mode"
+    android:visibility="visible"
+    tools:context=".SideRightFragmentUserOptions">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="12dp"
+        android:foregroundGravity="center">
+
+        <ImageView
+            android:id="@+id/iv_snoovatar"
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            app:layout_constraintEnd_toEndOf="@+id/cl_userstatus"
+            app:layout_constraintStart_toStartOf="@+id/cl_userstatus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_userstatus"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/rectangle_round_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/ib_status"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rectangle_round_border_green"
+                android:gravity="center_vertical"
+                android:text="   Estado en línea: Activado   "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/green"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:gravity="center_vertical"
+                android:text="u/Username"
+                android:textColor="@color/grey_light"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/ib_status"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_customizeAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/view4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_userstatus">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_customizeAvatar"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:background="@drawable/rectangle_round_red_gradient"
+                android:text="Personalizar avatar"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/grey_light"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_tshirt"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/tshirt"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_customizeAvatar"
+            app:layout_constraintStart_toStartOf="@+id/cl_customizeAvatar"
+            app:layout_constraintTop_toTopOf="@+id/cl_customizeAvatar" />
+
+        <LinearLayout
+            android:id="@+id/ll_KarmaViewGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/view3"
+            app:layout_constraintEnd_toStartOf="@+id/ll_ageOnRedditViewGruop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_customizeAvatar">
+
+            <View
+                android:id="@+id/view_karmaIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/karma_flower" />
+
+            <LinearLayout
+                android:id="@+id/ll_Karma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/view_karmaIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <TextView
+                    android:id="@+id/tv_karmaCounter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical"
+                    android:text="100"
+                    android:textColor="@color/grey_light"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_karmaText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="Karma"
+                    android:textColor="@color/grey_light"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="1dp"
+            android:layout_height="35dp"
+            android:layout_margin="4dp"
+            android:background="@color/grey_dark"
+            app:layout_constraintBottom_toTopOf="@+id/view3"
+            app:layout_constraintEnd_toStartOf="@+id/ll_ageOnRedditViewGruop"
+            app:layout_constraintStart_toEndOf="@+id/ll_KarmaViewGroup"
+            app:layout_constraintTop_toBottomOf="@+id/cl_customizeAvatar" />
+
+        <LinearLayout
+            android:id="@+id/ll_ageOnRedditViewGruop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ll_KarmaViewGroup"
+            app:layout_constraintTop_toBottomOf="@+id/cl_customizeAvatar">
+
+            <View
+                android:id="@+id/ll_cakeBirthday"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/cake_svgrepo_com" />
+
+            <LinearLayout
+                android:id="@+id/ll_ageOnReddit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/view_karmaIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <TextView
+                    android:id="@+id/tv_TimeInReddit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical"
+                    android:text="100"
+                    android:textColor="@color/grey_light"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_TimeInRedditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="Edad de Reddit"
+                    android:textColor="@color/grey_light"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="200dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/grey_dark"
+            app:layout_constraintBottom_toTopOf="@id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/view3">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_profile"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/account_circle_outline"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bt_optionProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:paddingLeft="32dp"
+                    android:text="Mi perfil"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/grey_light"
+                    android:textSize="14sp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_createCommunity"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_profile">
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bt_optionCreateCommunity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:paddingLeft="32dp"
+                    android:text="Crear una comunidad"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/grey_light"
+                    android:textSize="14sp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_safeBox"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_createCommunity">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bt_optionSafeBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:paddingLeft="32dp"
+                    android:text="Caja fuerte"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/grey_light"
+                    android:textSize="14sp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_coins"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_safeBox">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/coin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/bt_optionCoins"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@color/transparent"
+                        android:paddingLeft="32dp"
+                        android:text="Monedas de Reddit"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/grey_light"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_optionCoins"
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"
+                        android:paddingStart="32dp"
+                        android:text="0 monedas"
+                        android:textColor="@color/grey_semidark"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_RedditPremium"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_coins">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/shield_checkered"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/bt_optionRedditPremium"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="@color/transparent"
+                        android:paddingLeft="32dp"
+                        android:text="Reddit Premium"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/grey_light"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_optionRedditPremium"
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"
+                        android:paddingStart="32dp"
+                        android:text="Navegacion sin anuncios"
+                        android:textColor="@color/grey_semidark"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_contentSave"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_RedditPremium">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/bookmark_one"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bt_optionContentSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:paddingLeft="32dp"
+                    android:text="Guardado"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/grey_light"
+                    android:textSize="14sp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_history"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_contentSave">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/clock_outline"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bt_optionhistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:paddingLeft="32dp"
+                    android:text="Historial"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/grey_light"
+                    android:textSize="14sp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button"
+            android:layout_width="80dp"
+            android:layout_height="24dp"
+            android:background="@color/transparent"
+            android:text="Cerrar Sesión"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/grey_semidark"
+            android:textSize="9sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_margin="3dp"
+            android:background="@drawable/login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

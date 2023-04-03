@@ -1,4 +1,4 @@
-package com.example.reddittest
+package com.example.reddittest.data_model
 
 import com.google.gson.annotations.SerializedName
 
@@ -53,9 +53,3 @@ data class Video(
     @SerializedName("fallback_url")
     val urlVideo: String
 )
-
-
-
-
-
-

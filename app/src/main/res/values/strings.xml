@@ -13,4 +13,8 @@
     <string name="termsofuse">Al continuar, acetpas nuestro Acuerdo de usuario y la politica de privacidad</string>
     <string name="continuetext">Continuar</string>
 
+    <string name="rulesText">Las reglas son diferentes para cada comunidad. Revisa las reglas puede ayudarte a atener más éxito al publicar o comentar esta comunidad.</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
